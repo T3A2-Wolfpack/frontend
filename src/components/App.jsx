@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import "../App.css";
 import Nav from "./Nav";
@@ -7,11 +7,12 @@ import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhisky from "../pages/ShowWhiskey";
 
-import { GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
+import { GlobalWhiskeyContext, GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
 
 function App() {
   // state where we are pushing the newly added whiskey
-  const [whiskeys, setWhiskeys] = useState([]);
+  // const [whiskeys, setWhiskeys] = useState([]);
+  const { whiskeys } = useContext(GlobalWhiskeyContext)
 
   // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
@@ -24,17 +25,17 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="/" element={<Home whiskeys={whiskeys} />} />
-          <Route path="/whiskeys" element={<Whiskeys whiskeys={whiskeys} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/whiskeys" element={<Whiskeys />} />
           <Route
             path="/newwhiskey"
             element={
-              <NewWhiskey whiskeys={whiskeys} setWhiskeys={setWhiskeys} />
+              <NewWhiskey />
             }
           />
           <Route
             path="/whiskey/:id"
-            element={<ShowWhiskeyHOC whiskeys={whiskeys} />}
+            element={<ShowWhiskeyHOC />}
           />
         </Routes>
       </BrowserRouter>

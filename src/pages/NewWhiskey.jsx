@@ -32,9 +32,9 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
+
     await addWhiskey(formState);
     nav("/whiskeys");
-    // console.log(formState)
   }
 
   return (
