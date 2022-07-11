@@ -1,43 +1,30 @@
-import React, { useState } from "react";
 import Whiskeys from "./Whiskeys";
+import { Link, useNavigate } from "react-router-dom";
+import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { useContext, useState } from "react";
 
 // state is an object.
-function NewWhiskey({ whiskeys, setWhiskeys }) {
-  const [whiskey, setWhiskey] = useState({
-    name: "",
-    age: "",
-    region: "",
-    type: "",
-    budget: "",
-  });
+function NewWhiskey() {
+  let nav = useNavigate();
 
-  // onchange input below
-  const handleNameInputChange = (e) => {
-    setWhiskey({ ...whiskey, name: event.target.value });
-  };
+  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
 
-  const handleAgeInputChange = (e) => {
-    setWhiskey({ ...whiskey, age: event.target.value });
-  };
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [region, setRegion] = useState("");
+  const [type, setType] = useState("");
+  const [budget, setBudget] = useState("");
 
-  const handleRegionInputChange = (e) => {
-    setWhiskey({ ...whiskey, region: e.target.value });
-  };
-
-  const handleTypeInputChange = (e) => {
-    setWhiskey({ ...whiskey, type: e.target.value });
-  };
-
-  const handleBudgetInputChange = (e) => {
-    setWhiskey({ ...whiskey, budget: e.target.value });
-  };
-
-  // Pushes whiskey states to whiskeys array in app
-  const formSubmit = (e) => {
+  async function formSubmit(e) {
     e.preventDefault();
-    const pushArray = [...whiskeys];
-    pushArray.push(whiskey);
-    setWhiskeys(pushArray);
+    const newWhiskey = {
+      name,
+      age,
+      region,
+      type,
+      budget
+    };
+    await addWhiskey(newWhiskey);
   };
 
   return (
@@ -49,8 +36,10 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.name}
-            onChange={handleNameInputChange}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           ></textarea>
         </div>
         <div>
@@ -58,8 +47,10 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.age}
-            onChange={handleAgeInputChange}
+            value={age}
+            onChange={(e) => {
+              setAge(e.target.value);
+            }}
           ></textarea>
         </div>
         <div>
@@ -67,8 +58,10 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.region}
-            onChange={handleRegionInputChange}
+            value={region}
+            onChange={(e) => {
+              setRegion(e.target.value);
+            }}
           ></textarea>
         </div>
         <div>
@@ -76,8 +69,8 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.type}
-            onChange={handleTypeInputChange}
+            value={type}
+            onChange={(e) => {setType(e.target.value)}}
           ></textarea>
         </div>
         <div>
@@ -85,8 +78,8 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.budget}
-            onChange={handleBudgetInputChange}
+            value={budget}
+            onChange={(e) => {setBudget(e.target.value)}}
           ></textarea>
         </div>
         <button>Add whiskey</button>

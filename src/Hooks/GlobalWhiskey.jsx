@@ -1,19 +1,13 @@
-import React from 'react'
+import React, { createContext, useReducer } from 'react'
 import whiskeyReducer from './WhiskeyReducer'
-
-function GlobalWhiskey() {
-  return (
-
-  )
-}
 
 // The initial state may change to cover API call to all whiskeys.
 const initialState = {
     whiskeys: [
         {
-            name: "",
-            age: "",
-            region: "",
+            name: "Test name",
+            age: "Test age",
+            region: "Test region",
             type: "",
             budget: ""
         }
