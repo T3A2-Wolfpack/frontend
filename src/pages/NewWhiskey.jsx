@@ -5,6 +5,7 @@ import { useContext, useReducer, useState } from "react";
 import formReducer from "../Hooks/formReducer";
 
 const initialFormState = {
+  id: "",
   name: "",
   age: "",
   region: "",
@@ -18,7 +19,7 @@ function NewWhiskey() {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
-  const { addWhiskey } = useContext(GlobalWhiskeyContext);
+  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
 
   const handleTextInput = (e) => {
     dispatch({
@@ -32,7 +33,7 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-
+    formState.id = whiskeys.length + 1
     await addWhiskey(formState);
     nav("/whiskeys");
   }

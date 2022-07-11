@@ -5,20 +5,21 @@ import Nav from "./Nav";
 import Home from "../pages/Home";
 import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
-import ShowWhisky from "../pages/ShowWhiskey";
+import ShowWhiskey from "../pages/ShowWhiskey";
 
 import { GlobalWhiskeyContext, GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
 
 function App() {
   // state where we are pushing the newly added whiskey
-  // const [whiskeys, setWhiskeys] = useState([]);
+
   const { whiskeys } = useContext(GlobalWhiskeyContext)
 
   // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
     const { id } = useParams();
-    return <ShowWhisky whiskey={whiskeys[id]} />;
+    return <ShowWhiskey whiskey={whiskeys[id]} />;
   };
+
 
   return (
     <GlobalWhiskeyProvider>
