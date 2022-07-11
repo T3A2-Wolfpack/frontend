@@ -1,10 +1,11 @@
 import Whiskeys from "./Whiskeys";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
 import { useContext, useState } from "react";
 
 // state is an object.
 function NewWhiskey() {
+  // Below hook allows nav to other pages.
   let nav = useNavigate();
 
   const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
@@ -22,10 +23,11 @@ function NewWhiskey() {
       age,
       region,
       type,
-      budget
+      budget,
     };
     await addWhiskey(newWhiskey);
-  };
+    nav("/whiskeys");
+  }
 
   return (
     <>
@@ -70,7 +72,9 @@ function NewWhiskey() {
             cols="20"
             rows="1"
             value={type}
-            onChange={(e) => {setType(e.target.value)}}
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
           ></textarea>
         </div>
         <div>
@@ -79,10 +83,15 @@ function NewWhiskey() {
             cols="20"
             rows="1"
             value={budget}
-            onChange={(e) => {setBudget(e.target.value)}}
+            onChange={(e) => {
+              setBudget(e.target.value);
+            }}
           ></textarea>
         </div>
         <button>Add whiskey</button>
+        <div>
+          <Link to="/">Cancel</Link>
+        </div>
       </form>
     </>
   );
