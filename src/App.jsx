@@ -1,45 +1,41 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from "react";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import "../App.css";
+import Nav from "./Nav";
+import Home from "../pages/Home";
+import NewWhiskey from "../pages/NewWhiskey";
+import Whiskeys from "../pages/Whiskeys";
+import ShowWhisky from "../pages/ShowWhisky";
+
+import { GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // state where we are pushing the newly added whiskey
+  const [whiskeys, setWhiskeys] = useState([]);
+
+  // higher order component for showwhiskey
+  const ShowWhiskeyHOC = () => {
+    const { id } = useParams();
+    return <ShowWhisky whiskey={whiskeys[id]} />;
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home whiskeys={whiskeys} />} />
+        <Route path="/whiskeys" element={<Whiskeys whiskeys={whiskeys} />} />
+        <Route
+          path="/newwhiskey"
+          element={<NewWhiskey whiskeys={whiskeys} setWhiskeys={setWhiskeys} />}
+        />
+        <Route
+          path="/whiskey/:id"
+          element={<ShowWhiskeyHOC whiskeys={whiskeys} />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
