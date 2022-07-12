@@ -1,14 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext} from "react";
+import { useParams } from "react-router-dom";
+import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
 
-function ShowWhisky({ whiskey }) {
+function ShowWhiskey() {
+  const { whiskeys } = useContext(GlobalWhiskeyContext);
+  const { id } = useParams();
+
   return (
     <>
-      <h2>{whiskey.name}</h2>
-      <h3>{whiskey.age}</h3>
-      <h4>{whiskey.type}</h4>
+      <ul>
+        <li>Whiskey: {whiskeys.name}</li>
+        <li>Age: {whiskeys.age}</li>
+        <li>Type: {whiskeys.type}</li>
+      </ul>
     </>
   );
 }
 
-export default ShowWhisky;
+export default ShowWhiskey;

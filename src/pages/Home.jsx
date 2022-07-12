@@ -1,19 +1,15 @@
 import React from "react";
 import App from "../components/App";
+import { useContext } from "react";
+import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
 
-function Home({ whiskeys }) {
+function Home() {
+    const { whiskeys } = useContext(GlobalWhiskeyContext);
   return (
     <>
       <div>Home</div>
-      <ul>
-        {whiskeys.map((individual, index) => (
-          <div>
-            <h2>Whiskey: {individual.name}</h2>
-            <h4>Age: {individual.age}</h4>
-            <h4>Type: {individual.type}</h4>
-          </div>
-        ))}
-      </ul>
+      <button>{ console.log(whiskeys) }Press me</button>
+    
     </>
   );
 }

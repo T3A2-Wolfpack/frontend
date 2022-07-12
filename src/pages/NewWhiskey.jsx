@@ -1,44 +1,42 @@
-import React, { useState } from "react";
 import Whiskeys from "./Whiskeys";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { useContext, useReducer, useState } from "react";
+import formReducer from "../Hooks/formReducer";
+
+const initialFormState = {
+  id: "",
+  name: "",
+  age: "",
+  region: "",
+  type: "",
+  budget: "",
+};
 
 // state is an object.
-function NewWhiskey({ whiskeys, setWhiskeys }) {
-  const [whiskey, setWhiskey] = useState({
-    name: "",
-    age: "",
-    region: "",
-    type: "",
-    budget: "",
-  });
+function NewWhiskey() {
+  // Below hook allows nav to other pages.
 
-  // onchange input below
-  const handleNameInputChange = (e) => {
-    setWhiskey({ ...whiskey, name: event.target.value });
+  const [formState, dispatch] = useReducer(formReducer, initialFormState);
+
+  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
+
+  const handleTextInput = (e) => {
+    dispatch({
+      type: "TEXT_INPUT",
+      field: e.target.name,
+      payload: e.target.value,
+    });
   };
 
-  const handleAgeInputChange = (e) => {
-    setWhiskey({ ...whiskey, age: event.target.value });
-  };
+  let nav = useNavigate();
 
-  const handleRegionInputChange = (e) => {
-    setWhiskey({ ...whiskey, region: e.target.value });
-  };
-
-  const handleTypeInputChange = (e) => {
-    setWhiskey({ ...whiskey, type: e.target.value });
-  };
-
-  const handleBudgetInputChange = (e) => {
-    setWhiskey({ ...whiskey, budget: e.target.value });
-  };
-
-  // Pushes whiskey states to whiskeys array in app
-  const formSubmit = (e) => {
+  async function formSubmit(e) {
     e.preventDefault();
-    const pushArray = [...whiskeys];
-    pushArray.push(whiskey);
-    setWhiskeys(pushArray);
-  };
+    formState.id = whiskeys.length + 1
+    await addWhiskey(formState);
+    nav("/whiskeys");
+  }
 
   return (
     <>
@@ -49,8 +47,9 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.name}
-            onChange={handleNameInputChange}
+            name="name"
+            value={formState.name}
+            onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
         <div>
@@ -58,8 +57,9 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.age}
-            onChange={handleAgeInputChange}
+            name="age"
+            value={formState.age}
+            onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
         <div>
@@ -67,8 +67,9 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.region}
-            onChange={handleRegionInputChange}
+            name="region"
+            value={formState.region}
+            onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
         <div>
@@ -76,8 +77,9 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.type}
-            onChange={handleTypeInputChange}
+            name="type"
+            value={formState.type}
+            onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
         <div>
@@ -85,11 +87,15 @@ function NewWhiskey({ whiskeys, setWhiskeys }) {
           <textarea
             cols="20"
             rows="1"
-            value={whiskey.budget}
-            onChange={handleBudgetInputChange}
+            name="budget"
+            value={formState.budget}
+            onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
         <button>Add whiskey</button>
+        <div>
+          <Link to="/">Cancel</Link>
+        </div>
       </form>
     </>
   );
