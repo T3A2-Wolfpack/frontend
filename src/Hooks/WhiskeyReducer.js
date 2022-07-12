@@ -10,17 +10,18 @@ export default function whiskeyReducer(state, action) {
         ...state,
         whiskeys: state.whiskeys.filter((whiskey) => whiskey.id !== action.payload )
       }
-    
-    // Below isnt finished
-    // case "EDIT_WHISKEY":
-    //   const updatedWhiskey = action.payload
-
-    //   const updatedWhiskeys = state.whiskeys.map((whiskey) => {
-    //     if (whiskey.id === updatedWhiskey.id) {
-    //       return updatedWhiskey
-    //     }
-    //     return whiskey
-    //   })
+    case "EDIT_WHISKEY":
+      const updatedWhiskey = action.payload
+      const updatedWhiskeys = state.whiskeys.map((whiskey) => {
+        if (whiskey.id === updatedWhiskey.id) {
+          return updatedWhiskey
+        }
+        return whiskey
+      })
+      return {
+        ...state,
+        whiskeys: updatedWhiskeys
+      }
     default:
       return whiskey;
   }

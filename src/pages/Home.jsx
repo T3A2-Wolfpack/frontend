@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
       <div>Home</div>
-      <button>{ console.log(whiskeys) }Press me</button>
+      <button onClick={() => console.log(whiskeys) }>Whiskeys console log button</button>
     
     </>
   );

@@ -1,5 +1,5 @@
-import React, { useContext} from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
 
 function ShowWhiskey() {
@@ -9,9 +9,9 @@ function ShowWhiskey() {
   return (
     <>
       <ul>
-        <li>Whiskey: {whiskeys.name}</li>
-        <li>Age: {whiskeys.age}</li>
-        <li>Type: {whiskeys.type}</li>
+        <li>Whiskey: {whiskeys[id].name}</li>
+        <li>Age: {whiskeys[id].age}</li>
+        <li>Type: {whiskeys[id].type}</li>
       </ul>
     </>
   );

@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
+import EditAWhiskey from "../pages/EditAWhiskey";
 
 import { GlobalWhiskeyContext, GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
 
@@ -20,6 +21,10 @@ function App() {
     return <ShowWhiskey whiskey={whiskeys[id]} />;
   };
 
+  const EditWhiskeyHOC = () => {
+    const { id } = useParams()
+    return <EditAWhiskey whiskey={whiskeys[id]} />
+  }
 
   return (
     <GlobalWhiskeyProvider>
@@ -38,6 +43,7 @@ function App() {
             path="/whiskey/:id"
             element={<ShowWhiskeyHOC />}
           />
+          <Route path='/whiskey/edit/:id' element={<EditWhiskeyHOC />} />
         </Routes>
       </BrowserRouter>
     </GlobalWhiskeyProvider>

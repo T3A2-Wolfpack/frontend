@@ -21,24 +21,24 @@ export const GlobalWhiskeyProvider = ({ children }) => {
   function removeWhiskey(id) {
     dispatch({
       type: "REMOVE_WHISKEY",
-      payload: id
+      payload: id,
     })
   }
 
-  // Edit function not complete
-  // function editWhiskey(whiskey) {
-  //   dispatch({
-  //     type: "EDIT_WHISKEY",
-  //     payload: whiskey
-  //   })
-  // }
+  function editWhiskey(whiskey) {
+    dispatch({
+      type: "EDIT_WHISKEY",
+      payload: whiskey,
+    })
+  }
 
   return (
     <GlobalWhiskeyContext.Provider
       value={{
         whiskeys: state.whiskeys,
         addWhiskey,
-        removeWhiskey
+        removeWhiskey,
+        editWhiskey,
       }}
     >
       {children}

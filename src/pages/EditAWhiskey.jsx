@@ -1,7 +1,6 @@
-import Whiskeys from "./Whiskeys";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useReducer } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
-import { useContext, useReducer } from "react";
 import formReducer from "../Hooks/formReducer";
 
 const initialFormState = {
@@ -13,10 +12,21 @@ const initialFormState = {
   budget: "",
 };
 
-function NewWhiskey() {
+function EditAWhiskey() {
+  let nav = useNavigate();
+
+  const { whiskeys, editWhiskey } = useContext(GlobalWhiskeyContext);
+
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
-  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const edit = whiskeys.find(
+      (currentWhiskey) => currentWhiskey.id === Number(whiskeys[id])
+    );
+    console.log(edit);
+  }, [whiskeys[id]]);
 
   const handleTextInput = (e) => {
     dispatch({
@@ -26,19 +36,19 @@ function NewWhiskey() {
     });
   };
 
-  let nav = useNavigate();
 
-  async function formSubmit(e) {
+  const onSubmit = (e) => {
     e.preventDefault();
-    formState.id = whiskeys.length
-    await addWhiskey(formState);
-    nav("/whiskeys");
-  }
+    // console.log(formState.id)
+    // console.log(whiskeys[id])
+    editWhiskey(formState);
+    console.log(whiskeys)
+  };
 
   return (
     <>
-      <div>New Whiskey</div>
-      <form onSubmit={formSubmit}>
+      <div>Edit Whiskey</div>
+      <form onSubmit={onSubmit}>
         <div>
           <h2>Whiskey name</h2>
           <textarea
@@ -89,7 +99,7 @@ function NewWhiskey() {
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
-        <button>Add whiskey</button>
+        <button>Edit whiskey</button>
         <div>
           <Link to="/">Cancel</Link>
         </div>
@@ -98,4 +108,4 @@ function NewWhiskey() {
   );
 }
 
-export default NewWhiskey;
+export default EditAWhiskey;
