@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 
 

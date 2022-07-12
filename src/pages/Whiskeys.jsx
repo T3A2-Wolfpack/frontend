@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { Link } from "react-router-dom";
 
 function Whiskeys() {

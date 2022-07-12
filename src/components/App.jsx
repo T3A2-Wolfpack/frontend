@@ -8,12 +8,16 @@ import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 
-import { GlobalWhiskeyContext, GlobalWhiskeyProvider } from "../Hooks/GlobalWhiskey";
+import {
+  GlobalWhiskeyContext,
+  GlobalWhiskeyProvider,
+} from "../hooks/GlobalWhiskey";
+import { GlobalCommentProvider, GlobalCommentContext } from "../hooks/globalComment";
 
 function App() {
   // state where we are pushing the newly added whiskey
 
-  const { whiskeys } = useContext(GlobalWhiskeyContext)
+  const { whiskeys } = useContext(GlobalWhiskeyContext);
 
   // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
@@ -22,31 +26,25 @@ function App() {
   };
 
   const EditWhiskeyHOC = () => {
-    const { id } = useParams()
-    return <EditAWhiskey whiskey={whiskeys[id]} />
-  }
+    const { id } = useParams();
+    return <EditAWhiskey whiskey={whiskeys[id]} />;
+  };
 
   return (
-    <GlobalWhiskeyProvider>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/whiskeys" element={<Whiskeys />} />
-          <Route
-            path="/newwhiskey"
-            element={
-              <NewWhiskey />
-            }
-          />
-          <Route
-            path="/whiskey/:id"
-            element={<ShowWhiskeyHOC />}
-          />
-          <Route path='/whiskey/edit/:id' element={<EditWhiskeyHOC />} />
-        </Routes>
-      </BrowserRouter>
-    </GlobalWhiskeyProvider>
+    <GlobalCommentProvider>
+      <GlobalWhiskeyProvider>
+        <BrowserRouter>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/whiskeys" element={<Whiskeys />} />
+            <Route path="/newwhiskey" element={<NewWhiskey />} />
+            <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
+            <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
+          </Routes>
+        </BrowserRouter>
+      </GlobalWhiskeyProvider>
+    </GlobalCommentProvider>
   );
 }
 

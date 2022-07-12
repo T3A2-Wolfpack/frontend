@@ -1,8 +1,8 @@
 import Whiskeys from "./Whiskeys";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer } from "react";
-import formReducer from "../Hooks/formReducer";
+import formReducer from "../hooks/formReducer";
 
 const initialFormState = {
   id: "",
