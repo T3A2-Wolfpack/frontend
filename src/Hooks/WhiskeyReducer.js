@@ -17,6 +17,7 @@ export default function whiskeyReducer(state, action) {
           return updatedWhiskey
         }
         return whiskey
+  
       })
       return {
         ...state,

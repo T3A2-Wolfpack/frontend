@@ -1,49 +1,43 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
-import formReducer from "../Hooks/formReducer";
 
-const initialFormState = {
-  id: "",
-  name: "",
-  age: "",
-  region: "",
-  type: "",
-  budget: "",
-};
+
 
 function EditAWhiskey() {
   let nav = useNavigate();
 
   const { whiskeys, editWhiskey } = useContext(GlobalWhiskeyContext);
 
-  const [formState, dispatch] = useReducer(formReducer, initialFormState);
-
   const { id } = useParams();
 
-  useEffect(() => {
-    const edit = whiskeys.find(
-      (currentWhiskey) => currentWhiskey.id === Number(whiskeys[id])
-    );
-    console.log(edit);
-  }, [whiskeys[id]]);
+  const [selectedWhiskey, setSelectedWhiskey] = useState({
+    id: null,
+    name: "",
+    age: "",
+    region: "",
+    type: "",
+    budget: "",
+  })
+  
+  const currentWhiskeyId = whiskeys[id]
 
-  const handleTextInput = (e) => {
-    dispatch({
-      type: "TEXT_INPUT",
-      field: e.target.name,
-      payload: e.target.value,
-    });
-  };
+  useEffect(() => {
+    const whiskeyId = currentWhiskeyId
+    const selectWhiskey = whiskeys.find((currentWhiskey) => currentWhiskey.id === whiskeyId.id)
+    const selectedWhiskey = selectWhiskey
+    setSelectedWhiskey(selectedWhiskey)
+  }, [currentWhiskeyId, selectedWhiskey])
+
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log(formState.id)
-    // console.log(whiskeys[id])
-    editWhiskey(formState);
-    console.log(whiskeys)
+    editWhiskey(selectedWhiskey)
   };
+
+  const onChangeHandler = (key, value) =>
+    setSelectedWhiskey({...selectedWhiskey, [key]: value})
 
   return (
     <>
@@ -55,18 +49,18 @@ function EditAWhiskey() {
             cols="20"
             rows="1"
             name="name"
-            value={formState.name}
-            onChange={(e) => handleTextInput(e)}
+            value={ selectedWhiskey.name }
+            onChange={(e) => onChangeHandler("name", e.target.value)}
           ></textarea>
         </div>
-        <div>
+        {/* <div>
           <h2>Whiskey age</h2>
           <textarea
             cols="20"
             rows="1"
             name="age"
-            value={formState.age}
-            onChange={(e) => handleTextInput(e)}
+            value={selectedWhiskey.age}
+            onChange={(e) => onChangeHandler("age", e.target.value)}
           ></textarea>
         </div>
         <div>
@@ -75,8 +69,8 @@ function EditAWhiskey() {
             cols="20"
             rows="1"
             name="region"
-            value={formState.region}
-            onChange={(e) => handleTextInput(e)}
+            value={selectedWhiskey.region}
+            onChange={(e) => onChangeHandler("region", e.target.value)}
           ></textarea>
         </div>
         <div>
@@ -85,8 +79,8 @@ function EditAWhiskey() {
             cols="20"
             rows="1"
             name="type"
-            value={formState.type}
-            onChange={(e) => handleTextInput(e)}
+            value={selectedWhiskey.type}
+            onChange={(e) => onChangeHandler("type", e.target.value)}
           ></textarea>
         </div>
         <div>
@@ -95,10 +89,10 @@ function EditAWhiskey() {
             cols="20"
             rows="1"
             name="budget"
-            value={formState.budget}
-            onChange={(e) => handleTextInput(e)}
+            value={selectedWhiskey.budget}
+            onChange={(e) => onChangeHandler("budget", e.target.value)}
           ></textarea>
-        </div>
+        </div> */}
         <button>Edit whiskey</button>
         <div>
           <Link to="/">Cancel</Link>
