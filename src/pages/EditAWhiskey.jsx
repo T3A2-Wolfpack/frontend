@@ -23,11 +23,16 @@ function EditAWhiskey() {
   const currentWhiskeyId = whiskeys[id]
 
   useEffect(() => {
-    const whiskeyId = currentWhiskeyId
-    const selectWhiskey = whiskeys.find((currentWhiskey) => currentWhiskey.id === whiskeyId.id)
-    const selectedWhiskey = selectWhiskey
-    setSelectedWhiskey(selectedWhiskey)
-  }, [currentWhiskeyId, selectedWhiskey])
+    if (whiskeys.length >= 0) {
+      const whiskeyId = currentWhiskeyId
+      const selectWhiskey = whiskeys.find((currentWhiskey) => currentWhiskey.id === whiskeyId.id)
+      const selectedWhiskey = selectWhiskey
+      setSelectedWhiskey(selectedWhiskey)
+
+    } else {
+      return undefined
+    }
+  }, [currentWhiskeyId, whiskeys])
 
 
 
