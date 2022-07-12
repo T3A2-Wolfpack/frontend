@@ -1,8 +1,8 @@
 import Whiskeys from "./Whiskeys";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
-import { useContext, useReducer, useState } from "react";
-import formReducer from "../Hooks/formReducer";
+import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
+import { useContext, useReducer } from "react";
+import formReducer from "../hooks/formReducer";
 
 const initialFormState = {
   id: "",
@@ -13,10 +13,7 @@ const initialFormState = {
   budget: "",
 };
 
-// state is an object.
 function NewWhiskey() {
-  // Below hook allows nav to other pages.
-
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
   const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
@@ -33,14 +30,14 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-    formState.id = whiskeys.length + 1
+    formState.id = whiskeys.length
     await addWhiskey(formState);
     nav("/whiskeys");
   }
 
   return (
     <>
-      <div>NewWhiskey</div>
+      <div>New Whiskey</div>
       <form onSubmit={formSubmit}>
         <div>
           <h2>Whiskey name</h2>
