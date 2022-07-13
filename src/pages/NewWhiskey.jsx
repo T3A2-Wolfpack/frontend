@@ -1,5 +1,4 @@
-import Whiskeys from "./Whiskeys";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer } from "react";
 import formReducer from "../hooks/formReducer";
@@ -22,7 +21,7 @@ function NewWhiskey() {
     dispatch({
       type: "TEXT_INPUT",
       field: e.target.name,
-      payload: e.target.value,
+      data: e.target.value,
     });
   };
 
@@ -30,7 +29,7 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-    formState.id = whiskeys.length
+    formState.id = whiskeys.length;
     await addWhiskey(formState);
     nav("/whiskeys");
   }

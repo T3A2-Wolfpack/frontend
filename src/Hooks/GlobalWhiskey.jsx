@@ -3,7 +3,7 @@ import whiskeyReducer from "./whiskeyReducer";
 
 // The initial state may change to cover API call to all whiskeys.
 const initialState = {
-  whiskeys: []
+  whiskeys: [],
 };
 
 export const GlobalWhiskeyContext = createContext(initialState);
@@ -14,22 +14,29 @@ export const GlobalWhiskeyProvider = ({ children }) => {
   function addWhiskey(whiskey) {
     dispatch({
       type: "ADD_WHISKEY",
-      payload: whiskey,
+      data: whiskey,
     });
   }
 
   function removeWhiskey(id) {
     dispatch({
       type: "REMOVE_WHISKEY",
-      payload: id,
-    })
+      data: id,
+    });
   }
 
   function editWhiskey(whiskey) {
     dispatch({
       type: "EDIT_WHISKEY",
-      payload: whiskey,
-    })
+      data: whiskey,
+    });
+  }
+
+  function showWhiskeys(whiskeys) {
+    dispatch({
+      type: "SHOW_WHISKEY",
+      data: whiskeys,
+    });
   }
 
   return (
@@ -39,6 +46,7 @@ export const GlobalWhiskeyProvider = ({ children }) => {
         addWhiskey,
         removeWhiskey,
         editWhiskey,
+        showWhiskeys,
       }}
     >
       {children}

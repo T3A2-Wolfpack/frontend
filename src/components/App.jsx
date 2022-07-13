@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import "../App.css";
 import Nav from "./Nav";
@@ -7,19 +7,16 @@ import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
-
+import RetrieveWhiskeyFromApi from "../axios/RetrieveWhiskeyFromApi";
 import {
   GlobalWhiskeyContext,
   GlobalWhiskeyProvider,
 } from "../hooks/GlobalWhiskey";
-import { GlobalCommentProvider, GlobalCommentContext } from "../hooks/globalComment";
+import { GlobalCommentProvider } from "../hooks/globalComment";
 
 function App() {
-  // state where we are pushing the newly added whiskey
-
   const { whiskeys } = useContext(GlobalWhiskeyContext);
 
-  // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
     const { id } = useParams();
     return <ShowWhiskey whiskey={whiskeys[id]} />;
@@ -29,6 +26,7 @@ function App() {
     const { id } = useParams();
     return <EditAWhiskey whiskey={whiskeys[id]} />;
   };
+
 
   return (
     <GlobalCommentProvider>
@@ -43,6 +41,7 @@ function App() {
             <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
           </Routes>
         </BrowserRouter>
+        <RetrieveWhiskeyFromApi />
       </GlobalWhiskeyProvider>
     </GlobalCommentProvider>
   );

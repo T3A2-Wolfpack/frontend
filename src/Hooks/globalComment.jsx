@@ -1,38 +1,39 @@
-import { createContext, useReducer } from "react"
-import commentReducer from "./commentReducer"
+import { createContext, useReducer } from "react";
+import commentReducer from "./commentReducer";
 
 const initialState = {
-    comments: []
-}
+  comments: [],
+};
 
-export const GlobalCommentContext = createContext(initialState)
+export const GlobalCommentContext = createContext(initialState);
 
 export const GlobalCommentProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(commentReducer, initialState)
+  const [state, dispatch] = useReducer(commentReducer, initialState);
 
-    function addComment(comment) {
-        dispatch({
-            type: "ADD_COMMENT",
-            payload: comment,
-        })
-    }
-    // Need a show all comments page
-    function removeComment(id) {1
-        dispatch({
-            type: "REMOVE_COMMENT",
-            payload: id
-        })
-    }
+  function addComment(comment) {
+    dispatch({
+      type: "ADD_COMMENT",
+      data: comment,
+    });
+  }
+  // Need a show all comments page
+  function removeComment(id) {
+    1;
+    dispatch({
+      type: "REMOVE_COMMENT",
+      data: id,
+    });
+  }
 
-
-    return (
-        <GlobalCommentContext.Provider
-            value={{
-                comments: state.comments,
-                addComment,
-                removeComment
-            }}>
-                {children}
-        </GlobalCommentContext.Provider>
-    )
-}
+  return (
+    <GlobalCommentContext.Provider
+      value={{
+        comments: state.comments,
+        addComment,
+        removeComment,
+      }}
+    >
+      {children}
+    </GlobalCommentContext.Provider>
+  );
+};

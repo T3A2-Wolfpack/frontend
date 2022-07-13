@@ -12,8 +12,11 @@ function Home() {
       <button onClick={() => console.log(whiskeys)}>
         Whiskeys console log button
       </button>
+
+      <p>{whiskeys}</p>
       
       <AddComment />
+
     </>
   );
 }

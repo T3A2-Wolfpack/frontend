@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import { GlobalCommentContext } from "../hooks/globalComment"
+import { GlobalCommentContext } from "../hooks/globalComment";
 
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
-      const { comments } = useContext(GlobalCommentContext);
+  const { comments } = useContext(GlobalCommentContext);
   const { id } = useParams();
 
   return (
