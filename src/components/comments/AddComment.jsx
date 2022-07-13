@@ -1,5 +1,5 @@
 import React, { useContext, useReducer } from "react";
-import formReducer from "../../Hooks/formReducer";
+import formReducer from "../../hooks/formReducer";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 
 const initialFormState = {

@@ -1,7 +1,7 @@
 import React from "react";
 import App from "../components/App";
 import { useContext } from "react";
-import { GlobalWhiskeyContext } from "../Hooks/GlobalWhiskey";
+import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import AddComment from "../components/comments/AddComment";
 
 function Home() {
