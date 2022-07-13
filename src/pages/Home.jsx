@@ -1,20 +1,13 @@
-import React from "react";
-import App from "../components/App";
-import { useContext } from "react";
-import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import AddComment from "../components/comments/AddComment";
+import React from 'react'
+import logo from '../images/hwhiskey-logo.png'
 
 function Home() {
-    const { whiskeys } = useContext(GlobalWhiskeyContext);
   return (
-    <>
-      <div>Home</div>
-      <button onClick={() => console.log(whiskeys)}>
-        Whiskeys console log button
-      </button>
-      
-      <AddComment />
-    </>
-  );
+    <div className="grid items-start justify-center bg-hero bg-cover min-h-screen prose lg:prose-xl min-w-full">
+        <h1 className='h-1 text-center text-white'>Whiskey Taster</h1>
+        <img className='pt-0' src={logo} />
+    </div>
+  )
 }
-export default Home;
+
+export default Home
