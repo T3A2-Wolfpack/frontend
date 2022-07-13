@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import whiskeyReducer from "./whiskeyReducer";
+import whiskeyReducer from "./WhiskeyReducer";
 
 // The initial state may change to cover API call to all whiskeys.
 const initialState = {

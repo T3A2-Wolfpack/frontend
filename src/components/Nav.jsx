@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react"
+import LogoutButton from "./Logout";
+import LoginButton from "./Login";
 
 function Nav() {
+  const { isAuthenticated } = useAuth0()
+
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -38,6 +43,13 @@ function Nav() {
             >
               Add a whiskey
             </Link>
+            <li>
+              {isAuthenticated ?
+                <LogoutButton />
+                :
+                <LoginButton />                
+              }
+            </li>
           </ul>
         </div>
       </div>
