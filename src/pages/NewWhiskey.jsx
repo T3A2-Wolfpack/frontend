@@ -3,17 +3,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
+import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
 
-const api = 'http://localhost:4000/api/whiskeys'
-
-const initialFormState = {
-  id: "",
-  name: "",
-  age: "",
-  region: "",
-  type: "",
-  budget: "",
-};
+const initialFormState = {};
 
 function NewWhiskey() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
@@ -67,12 +59,15 @@ function NewWhiskey() {
 
   let nav = useNavigate();
 
-  async function formSubmit(e) {
+  function formSubmit(e) {
     e.preventDefault();
     formState.id = whiskeys.length
     await addWhiskey(formState);
     await postDetails(url)
     nav("/whiskeys");
+    PostRequest(formState)
+    console.log(formState)
+
   }
 
   return (
@@ -124,13 +119,13 @@ function NewWhiskey() {
           ></textarea>
         </div>
         <div>
-          <h2>Budget</h2>
+          <h2>Price</h2>
           <textarea
             required
             cols="20"
             rows="1"
-            name="budget"
-            value={formState.budget}
+            name="price"
+            value={formState.price}
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>

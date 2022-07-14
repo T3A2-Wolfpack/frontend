@@ -21,7 +21,13 @@ const initialFormState = {
 function AddComment() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+<<<<<<< Updated upstream
   const { addComment, comments } = useContext(GlobalCommentContext)
+=======
+  // const [state, setState] = useState("")
+
+  const { addComment, comments } = useContext(GlobalCommentContext);
+>>>>>>> Stashed changes
 
   const handleTextInput = (e) => {
     dispatch({

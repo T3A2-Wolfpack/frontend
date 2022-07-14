@@ -7,8 +7,12 @@ import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
+<<<<<<< Updated upstream
 import Profile from "../pages/Profile";
 
+=======
+import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
+>>>>>>> Stashed changes
 import {
   GlobalWhiskeyContext,
   GlobalWhiskeyProvider,

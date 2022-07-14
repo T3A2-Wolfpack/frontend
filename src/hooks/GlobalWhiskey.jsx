@@ -11,12 +11,21 @@ export const GlobalWhiskeyContext = createContext(initialState);
 export const GlobalWhiskeyProvider = ({ children }) => {
   const [state, dispatch] = useReducer(whiskeyReducer, initialState);
 
+<<<<<<< Updated upstream:src/hooks/GlobalWhiskey.jsx
   function addWhiskey(whiskey) {
     dispatch({
       type: "ADD_WHISKEY",
       payload: whiskey,
     });
   }
+=======
+  // function addWhiskey(whiskey) {
+  //   dispatch({
+  //     type: "ADD_WHISKEY",
+  //     data: whiskey,
+  //   });
+  // }
+>>>>>>> Stashed changes:src/Hooks/GlobalWhiskey.jsx
 
   function removeWhiskey(id) {
     dispatch({
