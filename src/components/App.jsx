@@ -15,6 +15,9 @@ import {
 } from "../hooks/GlobalWhiskey";
 import { GlobalCommentProvider, GlobalCommentContext } from "../hooks/globalComment";
 
+// define api from backend
+const api = 'http://localhost:4000/api/whiskeys'
+
 function App() {
   // state where we are pushing the newly added whiskey
 
