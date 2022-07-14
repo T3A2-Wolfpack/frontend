@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer } from "react";
 import formReducer from "../hooks/formReducer";
+import { PostRequest } from "../axios/RetrieveWhiskeyFromApi";
 
 const initialFormState = {
   id: "",
@@ -29,8 +30,7 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-    formState.id = whiskeys.length;
-    await addWhiskey(formState);
+    PostRequest(formState)
     nav("/whiskeys");
   }
 

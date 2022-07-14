@@ -4,19 +4,28 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
-function retrieveWhiskeyFromApi() {
 
-    const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
+export function RetrieveWhiskeyFromApi() {
+  const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
+  try {
+    useEffect(() => {
+      async function retrieveWhiskeys() {
+        const res = await axios.get("http://localhost:4000/api/whiskeys");
+        await showWhiskeys(res.data);
+      }
+      retrieveWhiskeys();
+    }, []);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-  useEffect(() => {
-    async function retrieveWhiskeys() {
-      const res = await axios.get("http://localhost:4000/api/whiskeys");
-      showWhiskeys()
-      console.log(res.data)
-    }
-    retrieveWhiskeys();
-  }, []);
-  return <div></div>;
+export function PostRequest(formState) {
+  try {
+    const res = axios.post("http://localhost:4000/api/whiskeys", formState);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 
