@@ -13,12 +13,12 @@ const initialFormState = {
   region: "",
   type: "",
   budget: "",
+  image: ""
 };
 
 function NewWhiskey() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const [image, setImage] = useState("")
-  const [url, setUrl] = useState("")
 
   const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
 
@@ -27,34 +27,18 @@ function NewWhiskey() {
     data.append("file", image)
     data.append("upload_preset", "whiskeyImage")
     data.append("cloud_name", "sonny949")
-    fetch("https://api.cloudinary.com/v1_1/sonny949/image/upload", {
+    return fetch("https://api.cloudinary.com/v1_1/sonny949/image/upload", {
       method: "post",
       body: data
     })
       .then(res => res.json())
       .then(data => {
-        setUrl(data.url)
-        console.log(url)
+        formState.image = data.url
+        console.log(formState.image)
       })
       .catch(err => {
         console.log(err)
       })
-
-    fetch(api, {
-      method: "post",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        name: formState.name,
-        age: formState.age,
-        region: formState.region,
-        type: formState.type,
-        price: formState.budget,
-        image: url
-      })
-    })
-      .then(() => console.log(url))
   }
 
   const handleTextInput = (e) => {
@@ -70,8 +54,23 @@ function NewWhiskey() {
   async function formSubmit(e) {
     e.preventDefault();
     formState.id = whiskeys.length
+    await postDetails()
     await addWhiskey(formState);
-    await postDetails(url)
+    await fetch(api, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        name: formState.name,
+        age: formState.age,
+        region: formState.region,
+        type: formState.type,
+        price: formState.budget,
+        image: formState.image
+      })
+    })
+      .then(() => console.log(formState))
     nav("/whiskeys");
   }
 
@@ -135,14 +134,14 @@ function NewWhiskey() {
           ></textarea>
         </div>
         <div>
-          <button>Image</button>
           <input
             required
             type="file"
+            name="image"
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <button onClick={() => postDetails()}>Add whiskey</button>
+        <button >Add whiskey</button>
         <div>
           <Link to="/">Cancel</Link>
         </div>
