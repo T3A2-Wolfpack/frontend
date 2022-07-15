@@ -59,7 +59,7 @@ function NewWhiskey() {
 
   let nav = useNavigate();
 
-  function formSubmit(e) {
+  async function formSubmit(e) {
     e.preventDefault();
     formState.id = whiskeys.length
     await addWhiskey(formState);

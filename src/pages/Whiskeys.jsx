@@ -1,13 +1,6 @@
-<<<<<<< Updated upstream
 // import React, { useContext } from "react";
 // import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 // import { Link } from "react-router-dom";
-=======
-import React, { useContext } from "react";
-import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import { Link } from "react-router-dom";
-import { RetrieveWhiskeyFromApi} from "../axios/RetrieveWhiskeyFromApi"
->>>>>>> Stashed changes
 
 function Whiskeys() {
   // const { whiskeys, removeWhiskey } = useContext(GlobalWhiskeyContext);
@@ -15,7 +8,6 @@ function Whiskeys() {
 
 
   return (
-<<<<<<< Updated upstream
     // returns full page div with bg responsive image
     <div className="bg-hero bg-scroll bg-cover bg-centre">
       <h1 className="text-white text-6xl text-bold p-2">Whiskies:</h1>
@@ -54,13 +46,6 @@ function Whiskeys() {
             <div>price: average</div>
             <div>rating: 3.8 stars</div>
           </div>
-=======
-    <>  
-      < RetrieveWhiskeyFromApi />
-      <h1>Whiskey Range: </h1>
-      <ul>
-        {whiskeys.map((singleWhiskey, index) => (
->>>>>>> Stashed changes
           <div>
             <img src='https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2e46f273971871.5c1bb36f2b32c.jpg' 
               className='h-full w-full rounded-r-xl'
