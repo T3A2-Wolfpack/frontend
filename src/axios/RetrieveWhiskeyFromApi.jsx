@@ -22,11 +22,17 @@ export function RetrieveWhiskeyFromApi() {
 
 export function PostRequest(formState) {
   try {
-    const res = axios.post("http://localhost:4000/api/whiskeys", formState);
+    axios.post("http://localhost:4000/api/whiskeys", formState);
   } catch (error) {
     console.error(error);
   }
 }
 
-
-export default retrieveWhiskeyFromApi
+export function DeleteWhiskey(id) {
+  try {
+    axios.delete(`http://localhost:4000/api/whiskeys/${id}`)
+    console.log("in axios", id)
+  } catch (error) {
+    console.error(error)
+  }
+}

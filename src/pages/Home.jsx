@@ -13,7 +13,6 @@ function Home() {
         Whiskeys console log button
       </button>
 
-      <p>{whiskeys}</p>
       
       <AddComment />
 

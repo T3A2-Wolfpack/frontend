@@ -31,6 +31,7 @@ function NewWhiskey() {
   async function formSubmit(e) {
     e.preventDefault();
     PostRequest(formState)
+    console.log("new wisky")
     nav("/whiskeys");
   }
 
@@ -85,6 +86,16 @@ function NewWhiskey() {
             rows="1"
             name="budget"
             value={formState.budget}
+            onChange={(e) => handleTextInput(e)}
+          ></textarea>
+        </div>
+        <div>
+          <h2>Price</h2>
+          <textarea
+            cols="20"
+            rows="1"
+            name="price"
+            value={formState.price}
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>

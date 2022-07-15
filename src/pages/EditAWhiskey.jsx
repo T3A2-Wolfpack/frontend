@@ -20,7 +20,7 @@ function EditAWhiskey() {
     budget: "",
   })
   
-  const currentWhiskeyId = whiskeys[id]
+  const currentWhiskeyId = whiskeys.map()
 
   useEffect(() => {
     if (whiskeys.length >= 0) {
