@@ -32,6 +32,13 @@ export const GlobalWhiskeyProvider = ({ children }) => {
     })
   }
 
+  function showWhiskeys(whiskeys) {
+    dispatch({
+      type: "SHOW_WHISKEY",
+      data: whiskeys,
+    });
+  }
+
   return (
     <GlobalWhiskeyContext.Provider
       value={{
@@ -39,6 +46,7 @@ export const GlobalWhiskeyProvider = ({ children }) => {
         addWhiskey,
         removeWhiskey,
         editWhiskey,
+        showWhiskeys
       }}
     >
       {children}
