@@ -17,7 +17,7 @@ export const GlobalCommentProvider = ({ children }) => {
         })
     }
     // Need a show all comments page
-    function removeComment(id) {1
+    function removeComment(id) {
         dispatch({
             type: "REMOVE_COMMENT",
             payload: id

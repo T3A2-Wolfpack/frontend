@@ -3,7 +3,6 @@ import formReducer from "../../hooks/formReducer";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 
 
-
 const initialFormState = {
   whiskey: "",
   user: "",
