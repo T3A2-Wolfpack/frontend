@@ -12,7 +12,7 @@ export function RetrieveWhiskeyFromApi() {
     useEffect(() => {
       async function retrieveWhiskeys() {
         const res = await axios.get("http://localhost:4000/api/whiskeys");
-        await showWhiskeys(res.data);
+        // await showWhiskeys(res.data);
       }
       retrieveWhiskeys();
     }, []);

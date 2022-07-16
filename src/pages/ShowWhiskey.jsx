@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
+import { GetComments } from "../axios/Comments";
 
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
@@ -20,8 +21,9 @@ function ShowWhiskey() {
           </>
         ))}
       <div>
-        <AddComment />
-      </div>{" "}
+        {/* <AddComment /> */}
+        < GetComments />
+      </div>
       {/* <h3>Comments</h3>
       <p>Comment: {comments[id].whiskey}</p>
       <p>Visual Rating: {comments[id].visual_rating}</p>

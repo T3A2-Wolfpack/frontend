@@ -35,7 +35,7 @@ function AddComment() {
 
   const handleOnChange = (e) => {
     const value = e.target.name
-    setComment({
+    setState({
       ...state,
       [e.target.name]: value
     })
@@ -59,7 +59,7 @@ function AddComment() {
           <textarea
             cols="20"
             rows="1"
-            name="visual_rating"
+            name="visual.rating"
             value={state.visual.rating}
             onChange={handleOnChange}
           ></textarea>
@@ -80,7 +80,7 @@ function AddComment() {
             cols="20"
             rows="1"
             name="visual_comment"
-            value={state.visual.comment}
+            value={state.nose.rating}
             onChange={handleOnChange}
           ></textarea>
         </div>
@@ -90,7 +90,7 @@ function AddComment() {
             cols="20"
             rows="1"
             name="visual_comment"
-            value={state.visual.comment}
+            value={state.nose.comment}
             onChange={handleOnChange}
           ></textarea>
         </div>
