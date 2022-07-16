@@ -11,14 +11,20 @@ function ShowWhiskey() {
 
   return (
     <>
-      <ul>
+      <button onClick={() => console.log(id)}>id</button>
+      {whiskeys.filter(whiskey => whiskey._id === id).map(singleWhiskey => (
+        <><li>Name: {singleWhiskey.name}</li>
+          <li>Age: {singleWhiskey.age}</li></>
+        ))}
+
+      {/* <ul>
         <li>Whiskey: {whiskeys[id].name}</li>
         <li>Age: {whiskeys[id].age}</li>
         <li>Type: {whiskeys[id].type}</li>
       </ul>
       <div>
         <AddComment />
-      </div>
+      </div> */}
       {/* <h3>Comments</h3>
       <p>Comment: {comments[id].whiskey}</p>
       <p>Visual Rating: {comments[id].visual_rating}</p>
