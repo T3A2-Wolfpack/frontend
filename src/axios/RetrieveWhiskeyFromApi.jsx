@@ -5,7 +5,7 @@ import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 
       // const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
-      const api = "https://frozen-bayou-80971.herokuapp.com/api/whiskeys"
+      const api = import.meta.env.REACT_APP_API_ENDPOINT
 
 export function RetrieveWhiskeyFromApi() {
   const { showWhiskeys } = useContext(GlobalWhiskeyContext);
