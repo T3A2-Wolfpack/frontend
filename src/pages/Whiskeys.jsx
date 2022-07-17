@@ -20,7 +20,7 @@ function Whiskeys() {
               <div>Price Range: {whiskey.price}</div>
               <div>rating</div>
             </div>
-            <div>
+            <div className="flex">
               <img src={whiskey.image} 
                 className='h-full w-full rounded-r-xl'
               />
