@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { Link } from "react-router-dom";
-import { RetrieveWhiskeyFromApi } from "../axios/retrieveWhiskeyFromApi";
+import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
