@@ -33,14 +33,6 @@ function ShowWhiskey() {
           <li>Comment Rating: {comment.nose.comment}</li>
         </>
       ))}
-      {/* <button onClick={() => GetComments(id)}>
-        Show comments
-      </button> */}
-      <div>{/* <AddComment /> */}</div>
-      {/* <h3>Comments</h3>
-      <p>Comment: {comments[id].whiskey}</p>
-      <p>Visual Rating: {comments[id].visual_rating}</p>
-      <button onClick={() => console.log(comments)}>Debug for comments</button> */}
     </>
   );
 }
