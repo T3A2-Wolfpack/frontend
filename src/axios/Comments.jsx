@@ -3,8 +3,6 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalCommentContext } from "../hooks/globalComment";
 
-// const { comments, showComments } = useContext(GlobalCommentContext)
-const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
 
 
 export function GetComments(id) {
@@ -12,12 +10,11 @@ export function GetComments(id) {
   try {
     useEffect(() => {
       async function retrieveComments() {
-
-        res = await axios.get(
-          `${api}/${id}/tastings`
-        );
-        await showComments;
-
+        const res = await axios.get(
+          `http://localhost:4000/api/whiskeys/${id}/tastings`
+        )
+        await showComments(res.data)
+        // await showComments(res.data);
       }
       retrieveComments();
     }, [])
