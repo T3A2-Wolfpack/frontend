@@ -26,7 +26,7 @@ function ShowWhiskey() {
             {/* Below gets the API call. now have to find out how to display it */}
           </>
         ))}
-      <h3>Comments by previous tasters: </h3>
+      <h3>Comments: </h3>
       {comments.filter((commentWhiskey) => commentWhiskey.whiskey === id).map((comment) => (
         <>
           <li>Nose Rating: {comment.nose.rating}</li>
