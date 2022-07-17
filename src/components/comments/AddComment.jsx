@@ -1,7 +1,7 @@
 import produce from "immer";
 import React, { useContext, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
-import formReducer from "../../hooks/formReducer";
+import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
 
@@ -89,7 +89,8 @@ function AddComment() {
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
-    addComment(commentState);
+    // addComment(commentState);
+    PostComment(id, commentState)
   }
 
 
