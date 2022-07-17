@@ -6,7 +6,7 @@ import formReducer from "../hooks/formReducer";
 // import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
 
 
-const api = 'http://localhost:4000/api/whiskeys'
+const api = import.meta.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
 
 const initialFormState = {
   id: "",
