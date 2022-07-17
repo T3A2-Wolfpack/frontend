@@ -3,8 +3,6 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalCommentContext } from "../hooks/globalComment";
 
-
-
 export function GetComments(id) {
   const { comments, showComments } = useContext(GlobalCommentContext);
   try {
@@ -23,3 +21,6 @@ export function GetComments(id) {
   }
 }
 
+// export function PostComments() {
+
+// }

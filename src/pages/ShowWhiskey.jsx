@@ -33,7 +33,9 @@ function ShowWhiskey() {
           <li>Comment Rating: {comment.nose.comment}</li>
         </>
       ))}
+      <AddComment/>
     </>
+  
   );
 }
 
