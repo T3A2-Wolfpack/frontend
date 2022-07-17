@@ -4,13 +4,16 @@ import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 
+      // const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
+      const api = "https://frozen-bayou-80971.herokuapp.com/api/whiskeys" || "http://localhost:4000/api/whiskeys"
+
 
 export function RetrieveWhiskeyFromApi() {
   const { showWhiskeys } = useContext(GlobalWhiskeyContext);
   try {
     useEffect(() => {
       async function retrieveWhiskeys() {
-        const res = await axios.get("http://localhost:4000/api/whiskeys");
+        const res = await axios.get(api);
         await showWhiskeys(res.data);
       }
       retrieveWhiskeys();
@@ -22,7 +25,7 @@ export function RetrieveWhiskeyFromApi() {
 
 export function PostRequest(formState) {
   try {
-      const res = axios.post("http://localhost:4000/api/whiskeys", formState);
+      const res = axios.post(api, formState);
   } catch (error) {
     console.error(error);
   }
