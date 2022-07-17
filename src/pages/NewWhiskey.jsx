@@ -3,6 +3,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
+import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
+
 
 const api = 'http://localhost:4000/api/whiskeys'
 
@@ -15,6 +17,7 @@ const initialFormState = {
   budget: "",
   image: ""
 };
+
 
 function NewWhiskey() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
@@ -72,6 +75,9 @@ function NewWhiskey() {
     })
       .then(() => console.log(formState))
     nav("/whiskeys");
+    PostRequest(formState)
+    console.log(formState)
+
   }
 
   return (
@@ -123,13 +129,13 @@ function NewWhiskey() {
           ></textarea>
         </div>
         <div>
-          <h2>Budget</h2>
+          <h2>Price</h2>
           <textarea
             required
             cols="20"
             rows="1"
-            name="budget"
-            value={formState.budget}
+            name="price"
+            value={formState.price}
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>

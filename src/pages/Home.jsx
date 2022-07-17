@@ -1,6 +1,9 @@
 import React from 'react'
 import logo from '../images/hwhiskey-logo.png'
 
+// useeffect here to get the whiskies
+// useeffect sits with component about to be renderred.
+
 function Home() {
   return (
     // returns div with a responsive background

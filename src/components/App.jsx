@@ -13,7 +13,7 @@ import {
   GlobalWhiskeyContext,
   GlobalWhiskeyProvider,
 } from "../hooks/GlobalWhiskey";
-import { GlobalCommentProvider, GlobalCommentContext } from "../hooks/globalComment";
+import { GlobalCommentProvider} from "../hooks/globalComment";
 
 // define api from backend
 const api = 'http://localhost:4000/api/whiskeys'

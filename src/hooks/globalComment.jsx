@@ -13,14 +13,21 @@ export const GlobalCommentProvider = ({ children }) => {
     function addComment(comment) {
         dispatch({
             type: "ADD_COMMENT",
-            payload: comment,
+            data: comment,
         })
     }
     // Need a show all comments page
-    function removeComment(id) {1
+    function removeComment(id) {
         dispatch({
             type: "REMOVE_COMMENT",
-            payload: id
+            data: id
+        })
+    }
+
+    function showComments(comments) {
+        dispatch({
+            type: "SHOW_COMMENT",
+            data: comments
         })
     }
 
@@ -30,7 +37,8 @@ export const GlobalCommentProvider = ({ children }) => {
             value={{
                 comments: state.comments,
                 addComment,
-                removeComment
+                removeComment,
+                showComments
             }}>
                 {children}
         </GlobalCommentContext.Provider>
