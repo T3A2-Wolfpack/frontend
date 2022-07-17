@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import { Link } from "react-router-dom";
+
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
+
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
@@ -20,7 +21,7 @@ function Whiskeys() {
               <div>Price Range: {whiskey.price}</div>
               <div>rating</div>
             </div>
-            <div className="flex">
+            <div className="flex justify-end ml-auto">
               <img src={whiskey.image} 
                 className='h-full w-full rounded-r-xl'
               />

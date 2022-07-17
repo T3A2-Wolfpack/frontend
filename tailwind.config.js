@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         // for easy use of background image (className='bg-hero')
-        'hero': "url('./src/images/whiskeyBackground.jpg')",
+        'hero': "url('https://res.cloudinary.com/sonny949/image/upload/v1658042872/whiskeyBackground_jil1ai.jpg')",
       }
     },
   },
@@ -17,5 +17,5 @@ module.exports = {
   ],
   variants: {
     backgroundImage: ['responsive', 'hover', 'focus'],
-  }
+  },
 }
