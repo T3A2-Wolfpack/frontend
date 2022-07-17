@@ -13,9 +13,9 @@ function AddComment() {
     whiskey: "",
     user: "",
     visual: {
-      rating: "",
-      comment: ""
-    },
+          rating: "",
+          comment: ""
+        },
     nose: {
       rating: "",
       comment: ""
@@ -53,7 +53,7 @@ function AddComment() {
   return (
     <>
       <div>AddComment</div>
-      <form onSubmit={submitComment}>
+      <form onSubmit={submitComment}> 
         <div>
           <label>visual rating out of 5</label>
           <textarea

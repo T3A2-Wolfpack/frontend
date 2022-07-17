@@ -14,21 +14,21 @@ export const GlobalWhiskeyProvider = ({ children }) => {
   function addWhiskey(whiskey) {
     dispatch({
       type: "ADD_WHISKEY",
-      payload: whiskey,
+      data: whiskey,
     });
   }
 
   function removeWhiskey(id) {
     dispatch({
       type: "REMOVE_WHISKEY",
-      payload: id,
+      data: id,
     })
   }
 
   function editWhiskey(whiskey) {
     dispatch({
       type: "EDIT_WHISKEY",
-      payload: whiskey,
+      data: whiskey,
     })
   }
 

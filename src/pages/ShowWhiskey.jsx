@@ -18,12 +18,13 @@ function ShowWhiskey() {
           <>
             <li>Name: {singleWhiskey.name}</li>
             <li>Age: {singleWhiskey.age}</li>
+            {/* Below gets the API call. now have to find out how to display it */}
+            <button onClick={() => GetComments(singleWhiskey._id)}>
+              Show comments
+            </button>
           </>
         ))}
-      <div>
-        {/* <AddComment /> */}
-        < GetComments />
-      </div>
+      <div>{/* <AddComment /> */}</div>
       {/* <h3>Comments</h3>
       <p>Comment: {comments[id].whiskey}</p>
       <p>Visual Rating: {comments[id].visual_rating}</p>
