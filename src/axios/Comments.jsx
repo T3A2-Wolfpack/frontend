@@ -2,24 +2,24 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { GlobalCommentContext } from "../hooks/globalComment";
-import { useParams } from "react-router-dom";
 
-// const { comments, showComments } = useContext(GlobalCommentContext)
+
 
 export function GetComments(id) {
-  const { showComments } = useContext(GlobalCommentContext)
-  
+  const { comments, showComments } = useContext(GlobalCommentContext);
   try {
     useEffect(() => {
       async function retrieveComments() {
-        res = await axios.get(
+        const res = await axios.get(
           `http://localhost:4000/api/whiskeys/${id}/tastings`
-        );
-        await showComments;
+        )
+        await showComments(res.data)
+        // await showComments(res.data);
       }
       retrieveComments();
-    }), [];
+    }, [])
   } catch (error) {
     console.error(error);
   }
 }
+

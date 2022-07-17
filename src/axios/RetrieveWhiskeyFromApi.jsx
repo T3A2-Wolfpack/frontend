@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 
-      // const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
 
 export function RetrieveWhiskeyFromApi() {
   const { showWhiskeys } = useContext(GlobalWhiskeyContext);

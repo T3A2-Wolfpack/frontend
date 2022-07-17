@@ -13,7 +13,7 @@ import {
   GlobalWhiskeyContext,
   GlobalWhiskeyProvider,
 } from "../hooks/GlobalWhiskey";
-import { GlobalCommentProvider} from "../hooks/globalComment";
+import { GlobalCommentContext, GlobalCommentProvider} from "../hooks/globalComment";
 
 // define api from backend
 const api = 'http://localhost:4000/api/whiskeys'
@@ -22,11 +22,12 @@ function App() {
   // state where we are pushing the newly added whiskey
 
   const { whiskeys } = useContext(GlobalWhiskeyContext);
+  const { comments } = useContext(GlobalCommentContext)
 
   // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
     const { id } = useParams();
-    return <ShowWhiskey whiskey={whiskeys[id]} />;
+    return <ShowWhiskey whiskey={whiskeys[id]} comment={comments[id]} />;
   };
 
   const EditWhiskeyHOC = () => {
