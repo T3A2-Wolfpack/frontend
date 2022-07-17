@@ -5,7 +5,7 @@ import { GlobalCommentContext } from "../hooks/globalComment";
 import { useParams } from "react-router-dom";
 
 // const { comments, showComments } = useContext(GlobalCommentContext)
-const api = import.meta.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
+const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
 
 export function GetComments(id) {
   const { showComments } = useContext(GlobalCommentContext)
