@@ -75,7 +75,6 @@ function NewWhiskey() {
       }),
     }).then(() => console.log(formState));
     nav("/whiskeys");
-    // PostRequest(formState)
     console.log(formState)
 
   }
