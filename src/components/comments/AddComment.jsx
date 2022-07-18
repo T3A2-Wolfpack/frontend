@@ -19,36 +19,19 @@ function AddComment() {
       rating: "",
       comment: "",
     },
-    // palate: {
-    //   rating: "",
-    //   comment: "",
-    // },
-    // finish: {
-    //   rating: "",
-    //   comment: ""
-    // },
-    // final_comment: ""
+    palate: {
+      rating: "",
+      comment: "",
+    },
+    finish: {
+      rating: "",
+      comment: "",
+    },
+    finalComment: "",
   });
 
   const { addComment, comments } = useContext(GlobalCommentContext);
   const { whiskeys } = useContext(GlobalWhiskeyContext);
-
-  // const handleOnChange = (e) => {
-  //   const value = e.target.name;
-  //   setCommentState({
-  //     ...state,
-  //     [e.target.name]: value,
-  //   });
-  // };
-
-  // const immerChange = (e) => {
-  //   const value = produce(commentState, draft => {
-  //     draft[e.target.name] = e.target.value
-  //   });
-  //   setCommentState(value);
-  // };
-
-  //////////////
 
   const immerVisualRating = (e) => {
     const value = produce(commentState, (draft) => {
@@ -78,6 +61,42 @@ function AddComment() {
     setCommentState(value);
   };
 
+  const immerPalateComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.palate.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerPalateRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.palate.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerFinishRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finish.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerFinishComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finish.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+
+  const immerFinalComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finalComment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
   const findWhiskey = () => {
     setCommentState({ ...commentState, whiskey: id });
   };
@@ -87,10 +106,9 @@ function AddComment() {
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
-
-    PostComment(id, commentState)
+    console.log(commentState)
+    PostComment(id, commentState);
   }
-
 
   return (
     <>
@@ -111,7 +129,7 @@ function AddComment() {
           <textarea
             cols="20"
             rows="1"
-            name="visual_comment"
+            name="visual.comment"
             value={commentState.visual.comment}
             onChange={immerVisualComment}
           ></textarea>
@@ -134,6 +152,56 @@ function AddComment() {
             name="nose.comment"
             value={commentState.nose.comment}
             onChange={immerNoseComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Palate rating</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="palate.rating"
+            value={commentState.palate.rating}
+            onChange={immerPalateRating}
+          ></textarea>
+        </div>
+        <div>
+          <label>Palate comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="palate.comment"
+            value={commentState.palate.comment}
+            onChange={immerPalateComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Finish rating</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finish.rating"
+            value={commentState.finish.rating}
+            onChange={immerFinishRating}
+          ></textarea>
+        </div>
+        <div>
+          <label>Finish comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finish.comment"
+            value={commentState.finish.comment}
+            onChange={immerFinishComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Final comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finalComment"
+            value={commentState.finalComment}
+            onChange={immerFinalComment}
           ></textarea>
         </div>
         <button>Submit comment</button>
