@@ -79,8 +79,6 @@ function AddComment() {
   };
 
   const findWhiskey = () => {
-    // const oneWhiskey = whiskeys.filter((whiskey) => whiskey._id === id);
-    // setCommentState({ ...commentState, whiskey: oneWhiskey._id })
     setCommentState({ ...commentState, whiskey: id });
   };
 
@@ -89,7 +87,7 @@ function AddComment() {
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
-    // addComment(commentState);
+
     PostComment(id, commentState)
   }
 
