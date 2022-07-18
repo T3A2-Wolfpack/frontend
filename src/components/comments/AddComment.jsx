@@ -138,14 +138,13 @@ function AddComment() {
       <form onSubmit={submitComment}>
         <div>
           <label>visual rating out of 5</label>
-          <StarRating value={commentState.visual.rating} />
-          {/* <textarea
+          <textarea
             cols="20"
             rows="1"
             name="visual.rating"
             value={commentState.visual.rating}
             onChange={immerVisualRating}
-          ></textarea> */}
+          ></textarea>
         </div>
         <div>
           <label>visual comment</label>
