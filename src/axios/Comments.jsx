@@ -8,7 +8,7 @@ export function GetComments(id) {
   const { comments, showComments } = useContext(GlobalCommentContext);
   try {
     useEffect(() => {
-      async function retrieveComments() {c
+      async function retrieveComments() {
         const res = await axios.get(
           `http://localhost:4000/api/whiskeys/${id}/tastings`
         );
@@ -16,7 +16,7 @@ export function GetComments(id) {
         // await showComments(res.data);
       }
       retrieveComments();
-    }, []);
+    }, [PostComment]);
   } catch (error) {
     console.error(error);
   }
@@ -24,7 +24,7 @@ export function GetComments(id) {
 
 export function PostComment(id, comment) {
   try {
-    axios.post(`http://localhost:4000/api/whiskeys/${id}/tastings`, comment);
+    axios.post(`http://localhost:4000/api/whiskeys/${id}/tastings`, comment );
   } catch (error) {
     console.error(error);
   }
