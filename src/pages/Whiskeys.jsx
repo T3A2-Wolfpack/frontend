@@ -3,6 +3,8 @@ import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 
+import { DeleteWhiskey } from "../axios/RetrieveWhiskeyFromApi";
+
 import { Link, useParams } from "react-router-dom";
 
 
@@ -17,7 +19,8 @@ function Whiskeys() {
         <h1 className="text-white text-6xl text-bold p-2">Whiskies:</h1>
 
         <div className='h-full lg:h-[100vh] w-[100vw] flex flex-wrap items-center justify-center text-white gap-8'>
-        {whiskeys.map(whiskey => ( 
+          {whiskeys.map(whiskey => (
+            
           <div className='bg-black/30 backdrop-blur-sm w-[400px] h-[250px] shadow-xl rounded-xl shadow-black flex flex-row hover:scale-110'>
             <div className="text-center basis-1/2">
               <div className="text-3xl mb-4">{whiskey.name}</div>
@@ -29,8 +32,9 @@ function Whiskeys() {
               <img src={whiskey.image} 
                 className='h-full w-full rounded-r-xl'
               />
+                </div>
+                <button onClick={() => DeleteWhiskey(whiskey._id)}>DELETE</button>
             </div>
-          </div>
         ))}
         </div>
       </div>
