@@ -68,7 +68,6 @@ function NewWhiskey() {
         name: formState.name,
         description: formState.description,
         age: formState.age,
-        description: formState.description,
         region: formState.region,
         type: formState.type,
         price: formState.price,
@@ -151,18 +150,7 @@ function NewWhiskey() {
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
-        <div>
-          <h2>Description</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="description"
-            value={formState.description}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
+          <div>
           <input
             required
             type="file"
