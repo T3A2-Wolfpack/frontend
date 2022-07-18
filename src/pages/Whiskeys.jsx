@@ -15,6 +15,7 @@ function Whiskeys() {
       <RetrieveWhiskeyFromApi />
       <div className="min-h-screen min-w-screen bg-hero bg-scroll bg-cover bg-centre bg-repeat">
         <h1 className="text-white text-6xl text-bold p-2">Whiskies:</h1>
+
         <div className='h-full lg:h-[100vh] w-[100vw] flex flex-wrap items-center justify-center text-white gap-8'>
         {whiskeys.map(whiskey => ( 
           <div className='bg-black/30 backdrop-blur-sm w-[400px] h-[250px] shadow-xl rounded-xl shadow-black flex flex-row hover:scale-110'>
@@ -31,7 +32,6 @@ function Whiskeys() {
             </div>
           </div>
         ))}
-
         </div>
       </div>
     </>

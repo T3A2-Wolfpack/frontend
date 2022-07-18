@@ -2,7 +2,7 @@ const TastingDetailsPreview = ({comment, user}) => {
   return (
     <div className="flex flex-col container p-3 max-w-sm rounded overflow-hidden shadow-lg">
       <div className="w-full flex justify-between">
-        <h3 className="">{user.email}</h3>
+        <h3 className="">{user?user.email:null}</h3>
         <p>5 Stars</p>
       </div>
 
