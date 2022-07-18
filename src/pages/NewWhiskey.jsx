@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
-// import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
+import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
 
 
 const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
