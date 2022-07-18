@@ -9,6 +9,7 @@ import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { PrivateRoute } from "./PrivateRoute";
+import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 
 import {
   GlobalWhiskeyContext,
@@ -39,6 +40,7 @@ function App() {
   return (
     <GlobalCommentProvider>
       <GlobalWhiskeyProvider>
+        <RetrieveWhiskeyFromApi />
         <BrowserRouter>
           <Nav />
           <Routes>
@@ -47,7 +49,7 @@ function App() {
             <Route path="/newwhiskey" element={<NewWhiskey />} />
             <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
             <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
-            <Route path="/profile" element={<Profile  />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </GlobalWhiskeyProvider>

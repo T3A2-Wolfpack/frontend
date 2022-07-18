@@ -25,7 +25,6 @@ function ShowWhiskey() {
   return (
     <>
 
-      <RetrieveWhiskeyFromApi />
 
       {GetComments(id)}
 
