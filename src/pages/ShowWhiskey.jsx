@@ -38,7 +38,9 @@ function ShowWhiskey() {
             <TastingDetailsPreview comment={comment} user={user} />
           ))}
       </div>
+
     </>
+  
   );
 }
 

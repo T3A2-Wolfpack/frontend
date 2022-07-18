@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
-import { Link } from "react-router-dom";
+
+import { Link, useParams } from "react-router-dom";
+
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
+  const { id } = useParams;
 
   return (
     <>
@@ -34,6 +37,7 @@ function Whiskeys() {
                 </div>
               </div>
             </Link>
+
           ))}
         </div>
       </div>
