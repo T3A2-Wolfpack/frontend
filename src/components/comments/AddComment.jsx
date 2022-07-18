@@ -1,67 +1,127 @@
+import produce from "immer";
 import React, { useContext, useReducer, useState } from "react";
-import formReducer from "../../hooks/formReducer";
+import { useParams } from "react-router-dom";
+import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
 
-
-
-
 function AddComment() {
-  const { whiskeys } = useContext(GlobalWhiskeyContext)
+  const { id } = useParams();
 
-  const [state, setState] = useState({
+  const [commentState, setCommentState] = useState({
     whiskey: "",
     user: "",
     visual: {
-          rating: "",
-          comment: ""
-        },
+      rating: "",
+      comment: "",
+    },
     nose: {
       rating: "",
-      comment: ""
+      comment: "",
     },
     palate: {
       rating: "",
-      comment: ""
+      comment: "",
     },
-    // finish: {
-    //   rating: "",
-    //   comment: ""
-    // },
-    // final_comment: ""
+    finish: {
+      rating: "",
+      comment: "",
+    },
+    finalComment: "",
   });
 
-  const { addComment, comments } = useContext(GlobalCommentContext)
+  const { addComment, comments } = useContext(GlobalCommentContext);
+  const { whiskeys } = useContext(GlobalWhiskeyContext);
 
-  const handleOnChange = (e) => {
-    const value = e.target.name
-    setState({
-      ...state,
-      [e.target.name]: value
-    })
-  }
+  const immerVisualRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.visual.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
 
+  const immerVisualComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.visual.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerNoseRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.nose.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerNoseComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.nose.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerPalateComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.palate.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerPalateRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.palate.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerFinishRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finish.rating = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const immerFinishComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finish.comment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+
+  const immerFinalComment = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.finalComment = e.target.value;
+    });
+    setCommentState(value);
+  };
+
+  const findWhiskey = () => {
+    setCommentState({ ...commentState, whiskey: id });
+  };
+
+  ///////////////
 
   function submitComment(e) {
     e.preventDefault();
-    // console.log(formState)
-    console.log(state)
-    console.log(comments)
-    // addComment(formState);
+    findWhiskey();
+    console.log(commentState)
+    PostComment(id, commentState);
   }
 
   return (
     <>
       <div>AddComment</div>
-      <form onSubmit={submitComment}> 
+      <form onSubmit={submitComment}>
         <div>
           <label>visual rating out of 5</label>
           <textarea
             cols="20"
             rows="1"
             name="visual.rating"
-            value={state.visual.rating}
-            onChange={handleOnChange}
+            value={commentState.visual.rating}
+            onChange={immerVisualRating}
           ></textarea>
         </div>
         <div>
@@ -69,9 +129,9 @@ function AddComment() {
           <textarea
             cols="20"
             rows="1"
-            name="visual_comment"
-            value={state.visual.comment}
-            onChange={handleOnChange}
+            name="visual.comment"
+            value={commentState.visual.comment}
+            onChange={immerVisualComment}
           ></textarea>
         </div>
         <div>
@@ -79,9 +139,9 @@ function AddComment() {
           <textarea
             cols="20"
             rows="1"
-            name="visual_comment"
-            value={state.nose.rating}
-            onChange={handleOnChange}
+            name="nose.rating"
+            value={commentState.nose.rating}
+            onChange={immerNoseRating}
           ></textarea>
         </div>
         <div>
@@ -89,9 +149,59 @@ function AddComment() {
           <textarea
             cols="20"
             rows="1"
-            name="visual_comment"
-            value={state.nose.comment}
-            onChange={handleOnChange}
+            name="nose.comment"
+            value={commentState.nose.comment}
+            onChange={immerNoseComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Palate rating</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="palate.rating"
+            value={commentState.palate.rating}
+            onChange={immerPalateRating}
+          ></textarea>
+        </div>
+        <div>
+          <label>Palate comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="palate.comment"
+            value={commentState.palate.comment}
+            onChange={immerPalateComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Finish rating</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finish.rating"
+            value={commentState.finish.rating}
+            onChange={immerFinishRating}
+          ></textarea>
+        </div>
+        <div>
+          <label>Finish comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finish.comment"
+            value={commentState.finish.comment}
+            onChange={immerFinishComment}
+          ></textarea>
+        </div>
+        <div>
+          <label>Final comment</label>
+          <textarea
+            cols="20"
+            rows="1"
+            name="finalComment"
+            value={commentState.finalComment}
+            onChange={immerFinalComment}
           ></textarea>
         </div>
         <button>Submit comment</button>

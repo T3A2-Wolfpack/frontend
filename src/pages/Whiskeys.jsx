@@ -3,9 +3,12 @@ import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 
+import { Link, useParams } from "react-router-dom";
+
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
+  const { id } = useParams;
 
   return (
     <>
@@ -28,6 +31,7 @@ function Whiskeys() {
             </div>
           </div>
         ))}
+
         </div>
       </div>
     </>
@@ -35,4 +39,3 @@ function Whiskeys() {
 }
 
 export default Whiskeys;
-
