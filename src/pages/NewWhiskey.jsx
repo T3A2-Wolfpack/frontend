@@ -11,6 +11,7 @@ const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
 const initialFormState = {
   id: "",
   name: "",
+  description: "",
   age: "",
   region: "",
   type: "",
@@ -62,18 +63,18 @@ function NewWhiskey() {
     await fetch(api, {
       method: "post",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
       body: JSON.stringify({
         name: formState.name,
         age: formState.age,
+        description: formState.description,
         region: formState.region,
         type: formState.type,
         price: formState.price,
-        image: formState.image
-      })
-    })
-      .then(() => console.log(formState))
+        image: formState.image,
+      }),
+    }).then(() => console.log(formState));
     nav("/whiskeys");
     PostRequest(formState)
     console.log(formState)
@@ -92,6 +93,17 @@ function NewWhiskey() {
             rows="1"
             name="name"
             value={formState.name}
+            onChange={(e) => handleTextInput(e)}
+          ></textarea>
+        </div>
+        <div>
+          <h2>Description</h2>
+          <textarea
+            required
+            cols="20"
+            rows="1"
+            name="description"
+            value={formState.description}
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
@@ -147,7 +159,7 @@ function NewWhiskey() {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <button >Add whiskey</button>
+        <button>Add whiskey</button>
         <div>
           <Link to="/">Cancel</Link>
         </div>
