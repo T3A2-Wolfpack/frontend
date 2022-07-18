@@ -14,7 +14,7 @@ const initialFormState = {
   age: "",
   region: "",
   type: "",
-  budget: "",
+  price: "",
   image: ""
 };
 
@@ -69,7 +69,7 @@ function NewWhiskey() {
         age: formState.age,
         region: formState.region,
         type: formState.type,
-        price: formState.budget,
+        price: formState.price,
         image: formState.image
       })
     })
