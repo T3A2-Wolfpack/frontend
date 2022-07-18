@@ -1,9 +1,12 @@
 import produce from "immer";
 import React, { useContext, useReducer, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
+
+import StarRating from "../StarRating";
 
 function AddComment() {
   const { id } = useParams();
@@ -33,12 +36,12 @@ function AddComment() {
   const { addComment, comments } = useContext(GlobalCommentContext);
   const { whiskeys } = useContext(GlobalWhiskeyContext);
 
-  const immerVisualRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.visual.rating = e.target.value;
-    });
-    setCommentState(value);
-  };
+  // const immerVisualRating = () => {
+  //   const value = produce(commentState, (draft) => {
+  //     draft.visual.rating = StarRating.rating
+  //   });
+  //   setCommentState(value);
+  // };
 
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
@@ -89,7 +92,6 @@ function AddComment() {
     setCommentState(value);
   };
 
-
   const immerFinalComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.finalComment = e.target.value;
@@ -101,13 +103,33 @@ function AddComment() {
     setCommentState({ ...commentState, whiskey: id });
   };
 
-  ///////////////
+  /////////////////////////////////////////////
+
+
+
+
+
+
+  const immerVisualRating = () => {
+    const value = produce(commentState, (draft) => {
+      draft.visual.rating = StarRating.rating;
+    });
+    setCommentState(value);
+  };
+
+
+
+
+
+  
+  /////////////////////////////////////////////
 
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
-    console.log(commentState)
-    PostComment(id, commentState);
+    // console.log(commentState)
+    // PostComment(id, commentState);
+    console.log(StarRating.ratingValue);
   }
 
   return (
@@ -116,13 +138,14 @@ function AddComment() {
       <form onSubmit={submitComment}>
         <div>
           <label>visual rating out of 5</label>
-          <textarea
+          <StarRating value={commentState.visual.rating} />
+          {/* <textarea
             cols="20"
             rows="1"
             name="visual.rating"
             value={commentState.visual.rating}
             onChange={immerVisualRating}
-          ></textarea>
+          ></textarea> */}
         </div>
         <div>
           <label>visual comment</label>

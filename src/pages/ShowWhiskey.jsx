@@ -5,6 +5,7 @@ import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
 import NoWorkResult from "postcss/lib/no-work-result";
+import StarRating from "../components/StarRating";
 
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
@@ -15,6 +16,7 @@ function ShowWhiskey() {
 
   return (
     <>
+      < StarRating />
       {GetComments(id)}
       <button onClick={() => console.log(comments)}>click</button>
       {whiskeys
