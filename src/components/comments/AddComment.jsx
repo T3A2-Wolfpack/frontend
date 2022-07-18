@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
+import StarRating from "../StartRating";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function AddComment() {
   const { id } = useParams();
+  const [starValue, setStarValue] = useState(0);
+  const { user } = useAuth0();
 
   const [commentState, setCommentState] = useState({
-    whiskey: "",
-    user: "",
     visual: {
       rating: "",
       comment: "",
@@ -28,6 +30,8 @@ function AddComment() {
       comment: "",
     },
     finalComment: "",
+    whiskey_id: "",
+    user_id: "",
   });
 
   const { addComment, comments } = useContext(GlobalCommentContext);
@@ -35,7 +39,7 @@ function AddComment() {
 
   const immerVisualRating = (e) => {
     const value = produce(commentState, (draft) => {
-      draft.visual.rating = e.target.value;
+      draft.visual.rating = "starValue";
     });
     setCommentState(value);
   };
@@ -89,7 +93,6 @@ function AddComment() {
     setCommentState(value);
   };
 
-
   const immerFinalComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.finalComment = e.target.value;
@@ -98,7 +101,10 @@ function AddComment() {
   };
 
   const findWhiskey = () => {
-    setCommentState({ ...commentState, whiskey: id });
+    console.log(id);
+    console.log(user);
+    immerVisualRating();
+    setCommentState({ ...commentState, whiskey_id: id, user_id: user._id });
   };
 
   ///////////////
@@ -106,33 +112,38 @@ function AddComment() {
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
-    console.log(commentState)
+
+    console.log(commentState);
     PostComment(id, commentState);
   }
 
   return (
     <>
-      <div>AddComment</div>
       <form onSubmit={submitComment}>
         <div>
-          <label>visual rating out of 5</label>
-          <textarea
-            cols="20"
-            rows="1"
+          <label>Visual rating out of 5</label>
+          <StarRating
+            starValue={starValue}
+            setStarValue={setStarValue}
+          ></StarRating>
+          {console.log(starValue)}
+          <input
             name="visual.rating"
-            value={commentState.visual.rating}
+            value={starValue}
             onChange={immerVisualRating}
-          ></textarea>
+            type="hidden"
+          ></input>
         </div>
         <div>
           <label>visual comment</label>
-          <textarea
+          <input
+            class="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
             cols="20"
-            rows="1"
+            rows="3"
             name="visual.comment"
             value={commentState.visual.comment}
             onChange={immerVisualComment}
-          ></textarea>
+          ></input>
         </div>
         <div>
           <label>Scent rating out of 5</label>
