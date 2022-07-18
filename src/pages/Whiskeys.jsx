@@ -37,7 +37,6 @@ function Whiskeys() {
                 </div>
               </div>
             </Link>
-
           ))}
         </div>
       </div>
