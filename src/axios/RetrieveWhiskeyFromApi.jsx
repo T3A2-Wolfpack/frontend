@@ -30,4 +30,12 @@ export function PostRequest(formState) {
   }
 }
 
+export function DeleteWhiskey(id) {
+  try {
+    axios.delete(`${api}/${id}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // If status = 200 dispatch global context.

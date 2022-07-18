@@ -8,6 +8,7 @@ import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
+import { PrivateRoute } from "./PrivateRoute";
 
 import {
   GlobalWhiskeyContext,
@@ -45,7 +46,7 @@ function App() {
             <Route path="/newwhiskey" element={<NewWhiskey />} />
             <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
             <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile  />} />
           </Routes>
         </BrowserRouter>
       </GlobalWhiskeyProvider>
