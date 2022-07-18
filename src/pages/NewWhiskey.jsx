@@ -3,14 +3,14 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
-// import { PostRequest } from "../axios/retrieveWhiskeyFromApi";
+import { PostRequest } from "../axios/RetrieveWhiskeyFromApi";
 
 
 const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
 
 const initialFormState = {
-  id: "",
   name: "",
+  description: "",
   age: "",
   region: "",
   type: "",
@@ -66,6 +66,7 @@ function NewWhiskey() {
       },
       body: JSON.stringify({
         name: formState.name,
+        description: formState.description,
         age: formState.age,
         region: formState.region,
         type: formState.type,
@@ -136,6 +137,17 @@ function NewWhiskey() {
             rows="1"
             name="price"
             value={formState.price}
+            onChange={(e) => handleTextInput(e)}
+          ></textarea>
+        </div>
+        <div>
+          <h2>Description</h2>
+          <textarea
+            required
+            cols="20"
+            rows="1"
+            name="description"
+            value={formState.description}
             onChange={(e) => handleTextInput(e)}
           ></textarea>
         </div>
