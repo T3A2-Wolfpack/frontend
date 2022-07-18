@@ -5,34 +5,39 @@ import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
 import NoWorkResult from "postcss/lib/no-work-result";
+import WhiskeyDetails from "../components/WhiskeyDetails";
+import { useAuth0 } from "@auth0/auth0-react";
+import TastingDetailsPreview from "../components/TastingDetailsPreview";
 
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext);
+  const { user } = useAuth0();
   const { id } = useParams();
-
-  
+  const [ whiskey ] = whiskeys.filter((whiskey) => whiskey._id === id);
 
   return (
     <>
       {GetComments(id)}
-      <button onClick={() => console.log(comments)}>click</button>
-      {whiskeys
-        .filter((whiskey) => whiskey._id === id)
-        .map((singleWhiskey) => (
-          <>
-            <li>Name: {singleWhiskey.name}</li>
-            <li>Age: {singleWhiskey.age}</li>
-            {/* Below gets the API call. now have to find out how to display it */}
-          </>
-        ))}
-      <h3>Comments: </h3>
-      {comments.filter((commentWhiskey) => commentWhiskey.whiskey === id).map((comment) => (
-        <>
-          <li>Nose Rating: {comment.nose.rating}</li>
-          <li>Comment Rating: {comment.nose.comment}</li>
-        </>
-      ))}
+
+      <div className="container flex flex-col">
+        <div className="flex justify-between">
+          <h3>{whiskey.name}</h3>
+          <p>5 Stars</p>
+        </div>
+        <div className="flex justify-between">
+          <img src={whiskey.image} className="w-20"/>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, nemo a. Vero itaque ut maiores, cupiditate soluta pariatur alias non modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?</p>
+        </div>
+      </div>
+
+      <div className="container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">
+        {comments
+          .filter((comment) => comment.whiskey === id)
+          .map((comment) => (
+            <TastingDetailsPreview comment={comment} user={user} />
+          ))}
+      </div>
     </>
   );
 }
