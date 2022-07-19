@@ -9,6 +9,8 @@ import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Loading } from "./Loading";
 
 import {
   GlobalWhiskeyContext,
@@ -21,6 +23,12 @@ const api = 'http://localhost:4000/api/whiskeys'
 
 function App() {
   // state where we are pushing the newly added whiskey
+
+  const { isLoading } = useAuth0()
+
+  if (isLoading) {
+    return <Loading type={'cylon'} color={'red'} />
+  }
 
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext)
