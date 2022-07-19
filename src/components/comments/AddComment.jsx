@@ -8,7 +8,6 @@ import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
 import StarRating from "../StartRating";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import StarRating from "../StarRating";
 
 function AddComment() {
   const { id } = useParams();
@@ -40,18 +39,18 @@ function AddComment() {
   const { addComment, comments } = useContext(GlobalCommentContext);
   const { whiskeys } = useContext(GlobalWhiskeyContext);
 
-  const immerVisualRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.visual.rating = "starValue";
-    });
-    setCommentState(value);
-  };
-  // const immerVisualRating = () => {
+  // const immerVisualRating = (e) => {
   //   const value = produce(commentState, (draft) => {
-  //     draft.visual.rating = StarRating.rating
+  //     draft.visual.rating = "starValue";
   //   });
   //   setCommentState(value);
   // };
+  const immerVisualRating = (e) => {
+    const value = produce(commentState, (draft) => {
+      draft.visual.rating = e.target.value
+    });
+    setCommentState(value);
+  };
 
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
@@ -116,27 +115,6 @@ function AddComment() {
     setCommentState({ ...commentState, whiskey_id: id, user_id: user._id });
   };
 
-  /////////////////////////////////////////////
-
-
-
-
-
-
-  const immerVisualRating = () => {
-    const value = produce(commentState, (draft) => {
-      draft.visual.rating = StarRating.rating;
-    });
-    setCommentState(value);
-  };
-
-
-
-
-
-  
-  /////////////////////////////////////////////
-
   function submitComment(e) {
     e.preventDefault();
     findWhiskey();
@@ -153,11 +131,11 @@ function AddComment() {
       <form onSubmit={submitComment}>
         <div>
           <label>Visual rating out of 5</label>
-          <StarRating
+          {/* <StarRating
             starValue={starValue}
             setStarValue={setStarValue}
           ></StarRating>
-          {console.log(starValue)}
+          {console.log(starValue)} */}
           <input
             name="visual.rating"
             value={starValue}

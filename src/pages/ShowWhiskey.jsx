@@ -15,7 +15,6 @@ import { useEffect } from "react";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import TastingModal from "../components/TastingModal";
 
-
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext);
@@ -25,7 +24,6 @@ function ShowWhiskey() {
 
   return (
     <>
-
 
       {GetComments(id)}
 

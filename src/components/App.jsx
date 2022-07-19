@@ -8,7 +8,6 @@ import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
-import { PrivateRoute } from "./PrivateRoute";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useAuth0 } from "@auth0/auth0-react";
