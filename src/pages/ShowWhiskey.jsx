@@ -13,6 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
 import { useEffect } from "react";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
+import TastingModal from "../components/TastingModal";
 
 
 function ShowWhiskey() {
@@ -41,7 +42,10 @@ function ShowWhiskey() {
             modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?
           </p>
         </div>
+        <TastingModal></TastingModal>
       </div>
+
+      
 
       <div className="container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">
         {comments
