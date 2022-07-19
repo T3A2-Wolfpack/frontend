@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
+import ReactSearchBox from "react-search-box";
+
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 
 import { DeleteWhiskey } from "../axios/RetrieveWhiskeyFromApi";
 
 import { Link, useParams } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
