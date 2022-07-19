@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
+
 import { PostRequest } from "../axios/RetrieveWhiskeyFromApi";
 
 
@@ -56,7 +57,6 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-    formState.id = whiskeys.length
     await postDetails()
     await addWhiskey(formState);
     await fetch(api, {
@@ -75,7 +75,6 @@ function NewWhiskey() {
       }),
     }).then(() => console.log(formState));
     nav("/whiskeys");
-    PostRequest(formState)
     console.log(formState)
 
   }

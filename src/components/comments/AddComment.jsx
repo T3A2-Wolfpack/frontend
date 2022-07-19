@@ -1,11 +1,14 @@
 import produce from "immer";
 import React, { useContext, useReducer, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
 import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
 import StarRating from "../StartRating";
 import { useAuth0 } from "@auth0/auth0-react";
+
+import StarRating from "../StarRating";
 
 function AddComment() {
   const { id } = useParams();
@@ -43,6 +46,12 @@ function AddComment() {
     });
     setCommentState(value);
   };
+  // const immerVisualRating = () => {
+  //   const value = produce(commentState, (draft) => {
+  //     draft.visual.rating = StarRating.rating
+  //   });
+  //   setCommentState(value);
+  // };
 
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
@@ -107,7 +116,26 @@ function AddComment() {
     setCommentState({ ...commentState, whiskey_id: id, user_id: user._id });
   };
 
-  ///////////////
+  /////////////////////////////////////////////
+
+
+
+
+
+
+  const immerVisualRating = () => {
+    const value = produce(commentState, (draft) => {
+      draft.visual.rating = StarRating.rating;
+    });
+    setCommentState(value);
+  };
+
+
+
+
+
+  
+  /////////////////////////////////////////////
 
   function submitComment(e) {
     e.preventDefault();
@@ -115,6 +143,9 @@ function AddComment() {
 
     console.log(commentState);
     PostComment(id, commentState);
+    // console.log(commentState)
+    // PostComment(id, commentState);
+    console.log(StarRating.ratingValue);
   }
 
   return (
