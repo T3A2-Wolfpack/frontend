@@ -13,9 +13,9 @@ export default function whiskeyReducer(state, action) {
         ),
       };
     case "EDIT_WHISKEY":
-      const updatedWhiskey = action.payload;
+      const updatedWhiskey = action.data
       const updatedWhiskeys = state.whiskeys.map((whiskey) => {
-        if (whiskey.id === updatedWhiskey.id) {
+        if (whiskey._id === updatedWhiskey._id) {
           return updatedWhiskey;
         }
         return whiskey;

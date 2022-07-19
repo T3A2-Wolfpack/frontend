@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-
-
+import { PatchWhiskey } from "../axios/RetrieveWhiskeyFromApi";
 
 function EditAWhiskey() {
   let nav = useNavigate();
@@ -11,40 +10,43 @@ function EditAWhiskey() {
 
   const { id } = useParams();
 
+  //  const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
+
   const [selectedWhiskey, setSelectedWhiskey] = useState({
-    id: null,
     name: "",
+    description: "",
     age: "",
     region: "",
     type: "",
-    budget: "",
-  })
-  
-  const currentWhiskeyId = whiskeys[id]
+    price: "",
+    image: ""
+  });
+
+  const currentWhiskeyId = id;
 
   useEffect(() => {
     if (whiskeys.length >= 0) {
-      const whiskeyId = currentWhiskeyId
-      const selectWhiskey = whiskeys.find((currentWhiskey) => currentWhiskey.id === whiskeyId.id)
-      const selectedWhiskey = selectWhiskey
-      setSelectedWhiskey(selectedWhiskey)
-
+      const whiskeyId = currentWhiskeyId;
+      const selectWhiskey = whiskeys.find(
+        (currentWhiskey) => currentWhiskey._id === whiskeyId
+      );
+      const selectedWhiskey = selectWhiskey;
+      setSelectedWhiskey(selectedWhiskey);
     } else {
-      return undefined
+      return undefined;
     }
-  }, [currentWhiskeyId, whiskeys])
-
-
+  }, [currentWhiskeyId, whiskeys]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     editWhiskey(selectedWhiskey)
+    PatchWhiskey(id, selectedWhiskey)
   };
 
   const onChangeHandler = (key, value) =>
-    setSelectedWhiskey({...selectedWhiskey, [key]: value})
+    setSelectedWhiskey({ ...selectedWhiskey, [key]: value });
 
-  return (
+  return selectedWhiskey ? (
     <>
       <div>Edit Whiskey</div>
       <form onSubmit={onSubmit}>
@@ -54,11 +56,21 @@ function EditAWhiskey() {
             cols="20"
             rows="1"
             name="name"
-            value={ selectedWhiskey.name }
+            value={selectedWhiskey.name}
             onChange={(e) => onChangeHandler("name", e.target.value)}
           ></textarea>
         </div>
-        {/* <div>
+        <div>
+          <h2>Whiskey description</h2>
+          <textarea
+            cols="20"
+            rows="1"
+            name="name"
+            value={selectedWhiskey.description}
+            onChange={(e) => onChangeHandler("description", e.target.value)}
+          ></textarea>
+        </div>
+        <div>
           <h2>Whiskey age</h2>
           <textarea
             cols="20"
@@ -89,22 +101,24 @@ function EditAWhiskey() {
           ></textarea>
         </div>
         <div>
-          <h2>Budget</h2>
+          <h2>Price</h2>
           <textarea
             cols="20"
             rows="1"
             name="budget"
-            value={selectedWhiskey.budget}
-            onChange={(e) => onChangeHandler("budget", e.target.value)}
+            value={selectedWhiskey.price}
+            onChange={(e) => onChangeHandler("price", e.target.value)}
           ></textarea>
-        </div> */}
+        </div>
         <button>Edit whiskey</button>
         <div>
           <Link to="/">Cancel</Link>
         </div>
       </form>
     </>
-  );
+  ) : (
+      <p>Loading...</p>
+  )
 }
 
 export default EditAWhiskey;

@@ -75,7 +75,7 @@ function NewWhiskey() {
       }),
     }).then(() => console.log(formState));
     nav("/whiskeys");
-
+    console.log(formState)
 
   }
 

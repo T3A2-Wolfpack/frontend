@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
+import { useParams } from "react-router-dom";
 
 // const { showWhiskeys, whiskeys } = useContext(GlobalWhiskeyContext);
 const api =
@@ -34,6 +35,14 @@ export function PostRequest(formState) {
 export function DeleteWhiskey(id) {
   try {
     axios.delete(`${api}/${id}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export function PatchWhiskey(id, whiskey) {
+  try {
+    axios.patch((`${api}/${id}`), whiskey)
   } catch (error) {
     console.error(error)
   }
