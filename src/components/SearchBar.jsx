@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../src/index.css";
+import OutsideClickHandler from "react-outside-click-handler";
 
 function SearchBar({ whiskeys }) {
   const [search, setSearch] = useState([]);
@@ -9,43 +10,40 @@ function SearchBar({ whiskeys }) {
   const handleSearch = (e) => {
     const searchWhiskey = e.target.value;
     const filterWhiskey = whiskeys.filter((value) => {
-      return value.name.toLowerCase().includes(searchWhiskey.toLowerCase())
+      return value.name.toLowerCase().includes(searchWhiskey.toLowerCase());
     });
     if (searchWhiskey === "") {
       setSearch([]);
     } else {
-        setSearch(filterWhiskey)
-
+      setSearch(filterWhiskey);
     }
   };
 
   return (
-    <div className="search">
-      <div className="searchInputs">
-        <input
-          type="text"
-          placeholder="Search Whiskey..."
-          onChange={handleSearch}
-        />
-
-        {/* Search icon */}
-        <div className="icons">
-          {/* <SearchCircleIcon className="searchIcon" /> */}
+      <OutsideClickHandler onOutsideClick={() => {
+          setSearch([])
+    }}>
+      <div className="search">
+        <div className="searchInputs" >
+          <input
+            type="text"
+            placeholder="Search Whiskey..."
+            onChange={handleSearch}
+          />
         </div>
-        {/* {searchWhiskey.length === 0 ? <Show search icon> : <show close icon onClick>} */}
+        {search.length != 0 && (
+          <div className="result">
+            {search.map((value, key) => {
+              return (
+                <Link to={`/whiskey/${value._id}`} className="individualResult">
+                  <p> {value.name} </p>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {search.length != 0 && (
-        <div className="result">
-          {search.map((value, key) => {
-            return (
-              <Link to={`/whiskey/${value._id}`} className="individualResult" >
-                    <p> {value.name} </p>
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    </OutsideClickHandler>
   );
 }
 
