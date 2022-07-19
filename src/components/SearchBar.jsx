@@ -1,10 +1,7 @@
 import React from "react";
-import SearchIcon from "../images/SearchIcon";
-import { SearchCircleIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../src/index.css";
-
 
 function SearchBar({ whiskeys }) {
   const [search, setSearch] = useState([]);
@@ -12,15 +9,15 @@ function SearchBar({ whiskeys }) {
   const handleSearch = (e) => {
     const searchWhiskey = e.target.value;
     const filterWhiskey = whiskeys.filter((value) => {
-      return value.name.toLowerCase().includes(searchWhiskey.toLowerCase());
+      return value.name.toLowerCase().includes(searchWhiskey.toLowerCase())
     });
     if (searchWhiskey === "") {
       setSearch([]);
     } else {
-      setSearch(filterWhiskey);
+        setSearch(filterWhiskey)
+
     }
   };
-
 
   return (
     <div className="search">
@@ -28,8 +25,7 @@ function SearchBar({ whiskeys }) {
         <input
           type="text"
           placeholder="Search Whiskey..."
-                  onChange={handleSearch}
-                  onBlur={() => setSearch([])}
+          onChange={handleSearch}
         />
 
         {/* Search icon */}
@@ -42,8 +38,8 @@ function SearchBar({ whiskeys }) {
         <div className="result">
           {search.map((value, key) => {
             return (
-              <Link to={`/whiskey/${value._id}`} className="individualResult">
-                <p> {value.name} </p>
+              <Link to={`/whiskey/${value._id}`} className="individualResult" >
+                    <p> {value.name} </p>
               </Link>
             );
           })}
