@@ -4,6 +4,10 @@ import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
+import NoWorkResult from "postcss/lib/no-work-result";
+import StarRating from "../components/StarRating";
+import WhiskeyDetails from "../components/WhiskeyDetails";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
@@ -28,7 +32,7 @@ function ShowWhiskey() {
 
   return (
     <>
-      <RetrieveWhiskeyFromApi />
+
       {GetComments(id)}
 
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">

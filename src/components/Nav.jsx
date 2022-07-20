@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from "react-router-dom"
@@ -7,6 +7,9 @@ import LoginButton from './Login'
 import LogoutButton from './Logout'
 import Profile from '../pages/Profile'
 import { useAuth0 } from '@auth0/auth0-react'
+import SearchBar from './SearchBar'
+import { GlobalWhiskeyContext } from '../hooks/GlobalWhiskey'
+
 
 // create resources for Link to map over 
 const navigation = [
@@ -20,7 +23,8 @@ function classNames(...classes) {
 }
 
 function Nav() {
-  const {isAuthenticated, user } = useAuth0()
+  const { isAuthenticated, user } = useAuth0()
+  const { whiskeys } = useContext(GlobalWhiskeyContext);
   return (
     <Disclosure as="nav" className="bg-amber-800">
       {({ open }) => (
@@ -38,7 +42,7 @@ function Nav() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start ">
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="block lg:hidden h-10 w-auto"
@@ -51,6 +55,10 @@ function Nav() {
                     alt="Workflow"
                   />
                 </div>
+                <SearchBar
+                  whiskeys={whiskeys}
+                  className=" text-gray-300 hover:bg-amber-700 hover:text-white"
+                />
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -58,10 +66,12 @@ function Nav() {
                         key={item.name}
                         to={item.to}
                         className={classNames(
-                          item.current ? 'bg-amber-900 text-white' : 'text-gray-300 hover:bg-amber-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          item.current
+                            ? "bg-amber-900 text-white"
+                            : "text-gray-300 hover:bg-amber-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Link>
@@ -70,16 +80,15 @@ function Nav() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                { !isAuthenticated && 
-                <LoginButton
-                  type="button"
-                  className="bg-gray-500 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                </LoginButton>
-                }
+                {!isAuthenticated && (
+                  <LoginButton
+                    type="button"
+                    className="bg-gray-500 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  ></LoginButton>
+                )}
 
                 {/* Profile dropdown */}
-                { isAuthenticated &&  
+                {isAuthenticated && (
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-amber-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-amber-800 focus:ring-white">
@@ -104,8 +113,11 @@ function Nav() {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              to='/profile'
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              to="/profile"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Your Profile
                             </Link>
@@ -115,7 +127,10 @@ function Nav() {
                           {({ active }) => (
                             <a
                               href="#"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Settings
                             </a>
@@ -124,7 +139,10 @@ function Nav() {
                         <Menu.Item>
                           {({ active }) => (
                             <LogoutButton
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Sign out
                             </LogoutButton>
@@ -133,7 +151,7 @@ function Nav() {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -147,22 +165,28 @@ function Nav() {
                       key={item.name}
                       to={item.to}
                       className={classNames(
-                        item.current ? 'bg-amber-900 text-white' : 'text-amber-300 hover:bg-amber-700 hover:text-white',
-                        'block px-3 py-2 rounded-md text-base font-medium'
+                        item.current
+                          ? "bg-amber-900 text-white"
+                          : "text-amber-300 hover:bg-amber-700 hover:text-white",
+                        "block px-3 py-2 rounded-md text-base font-medium"
                       )}
-                      aria-current={item.current ? 'page' : undefined}
+                      aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Link>
-                    {isAuthenticated && <Link 
-                      key='Make a Tasting'
-                      to='/tasting'
-                      className={classNames(
-                        item.current ? 'bg-amber-900 text-white' : 'text-gray-300 hover:bg-amber-700 hover:text-white',
-                        'px-3 py-2 rounded-md text-sm font-medium'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                      />}
+                    {isAuthenticated && (
+                      <Link
+                        key="Make a Tasting"
+                        to="/tasting"
+                        className={classNames(
+                          item.current
+                            ? "bg-amber-900 text-white"
+                            : "text-gray-300 hover:bg-amber-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      />
+                    )}
                   </Disclosure.Button>
                 </div>
               ))}
@@ -171,7 +195,7 @@ function Nav() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }
 
 export default Nav

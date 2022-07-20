@@ -3,10 +3,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
-import { PostRequest } from "../axios/RetrieveWhiskeyFromApi";
 
 
-const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
+const api = `${import.meta.env.API_ENDPOINT}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
 
 const initialFormState = {
   name: "",
@@ -56,7 +55,6 @@ function NewWhiskey() {
 
   async function formSubmit(e) {
     e.preventDefault();
-    formState.id = whiskeys.length
     await postDetails()
     await addWhiskey(formState);
     await fetch(api, {
@@ -75,7 +73,6 @@ function NewWhiskey() {
       }),
     }).then(() => console.log(formState));
     nav("/whiskeys");
-    PostRequest(formState)
     console.log(formState)
 
   }
