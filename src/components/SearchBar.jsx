@@ -18,7 +18,6 @@
 //       setSearch(filterWhiskey);
 //     }
 //   };
-
 //   return (
 //       <OutsideClickHandler onOutsideClick={() => {
 //           setSearch([])
@@ -46,5 +45,6 @@
 //     </OutsideClickHandler>
 //   );
 // }
+
 
 // export default SearchBar;
