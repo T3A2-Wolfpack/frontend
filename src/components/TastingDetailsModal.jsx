@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AddComment from "./comments/AddComment";
 
-export default function TastingModal({starValues, setStarValues}) {
+export default function TastingDetailsModal({ starValues, setStarValues }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -10,7 +10,7 @@ export default function TastingModal({starValues, setStarValues}) {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Add Tasting
+        View Tasting
       </button>
       {showModal ? (
         <>
