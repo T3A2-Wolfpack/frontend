@@ -158,22 +158,20 @@ function NewWhiskey() {
             </select>
           </div>
           <div>
-          <label for="price" className="block text-lg font-medium text-amber-700">Price</label>
+          <label for="price" className="block text-lg font-medium text-amber-700">Budget</label>
           <select
               required
-              id=""
-              type="text"
-              name="region"
+              id="price"
+              name="price"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.region}
+              value={formState.price}
               onChange={(e) => handleTextInput(e)}
             >
-              <option value="Scotch">Scotch</option>
-              <option value="Irish">Irish</option>
-              <option value="American">American</option>
-              <option value="Japanese">Japanese</option>
-              <option value="Canadian">Canadian</option>
-              <option value="Other">Other</option>
+              <option value="Cheap">Cheap and nasty</option>
+              <option value="Average">Average Everyday</option>
+              <option value="Above Average">Not cheap, but not too bad.</option>
+              <option value="Expensive">It will set you back.</option>
+              <option value="Top Shelf">Top Shelf</option>
             </select>
           </div>
             <div>
