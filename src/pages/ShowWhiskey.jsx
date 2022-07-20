@@ -4,13 +4,13 @@ import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
-import NoWorkResult from "postcss/lib/no-work-result";
-import WhiskeyDetails from "../components/WhiskeyDetails";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
-import { useEffect } from "react";
+
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import TastingModal from "../components/TastingModal";
+import { useState } from "react";
 
 function ShowWhiskey() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
@@ -18,6 +18,13 @@ function ShowWhiskey() {
   const { user } = useAuth0();
   const { id } = useParams();
   const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
+  const [starValues, setStarValues] = useState({
+    visual: 0,
+    nose: 0,
+    palate: 0,
+    finish: 0,
+    average: 0,
+  });
 
   return (
     <>
@@ -37,16 +44,22 @@ function ShowWhiskey() {
             modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?
           </p>
         </div>
-        <TastingModal></TastingModal>
+        <TastingModal
+          starValues={starValues}
+          setStarValues={setStarValues}
+        ></TastingModal>
       </div>
-
-      
 
       <div className="container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">
         {comments
-          .filter((comment) => comment.whiskey === id)
+          .filter((comment) => comment.whiskey_id === id)
           .map((comment) => (
-            <TastingDetailsPreview comment={comment} user={user} />
+            <TastingDetailsPreview
+              comment={comment}
+              user={user}
+              starValues={starValues}
+              whiskey_id={id}
+            />
           ))}
       </div>
     </>

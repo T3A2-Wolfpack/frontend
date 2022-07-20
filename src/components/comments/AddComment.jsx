@@ -1,59 +1,112 @@
 import produce from "immer";
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
-import { GlobalWhiskeyContext } from "../../hooks/GlobalWhiskey";
-import StarRating from "../StartRating";
 import { useAuth0 } from "@auth0/auth0-react";
+import Rating from "@mui/material/Rating";
+import { useEffect } from "react";
 
-function AddComment() {
+function AddComment({ setShowModal, starValues, setStarValues }) {
   const { id } = useParams();
-  const [starValue, setStarValue] = useState(0);
   const { user } = useAuth0();
 
   const [commentState, setCommentState] = useState({
     visual: {
-      rating: "",
+      rating: 0,
       comment: "",
     },
     nose: {
-      rating: "",
+      rating: 0,
       comment: "",
     },
     palate: {
-      rating: "",
+      rating: 0,
       comment: "",
     },
     finish: {
-      rating: "",
+      rating: 0,
       comment: "",
     },
+    finalRating: 0,
     finalComment: "",
     whiskey_id: "",
     user_id: "",
   });
 
-  const { addComment, comments } = useContext(GlobalCommentContext);
-  const { whiskeys } = useContext(GlobalWhiskeyContext);
-
-  const immerVisualRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.visual.rating = "starValue";
+  useEffect(() => {
+    setStarValues({ ...starValues, visual: starValues.visual });
+    setCommentState({
+      ...commentState,
+      visual: {
+        rating: starValues.visual,
+        comment: commentState.visual.comment,
+      },
     });
-    setCommentState(value);
-  };
+  }, [starValues.visual]);
+
+  useEffect(() => {
+    setStarValues({ ...starValues, nose: starValues.nose });
+    setCommentState({
+      ...commentState,
+      nose: {
+        rating: starValues.nose,
+        comment: commentState.nose.comment,
+      },
+    });
+  }, [starValues.nose]);
+
+  useEffect(() => {
+    setStarValues({ ...starValues, palate: starValues.palate });
+    setCommentState({
+      ...commentState,
+      palate: {
+        rating: starValues.palate,
+        comment: commentState.palate.comment,
+      },
+    });
+  }, [starValues.palate]);
+
+  useEffect(() => {
+    setStarValues({ ...starValues, finish: starValues.finish });
+    setCommentState({
+      ...commentState,
+      finish: {
+        rating: starValues.finish,
+        comment: commentState.finish.comment,
+      },
+    });
+  }, [starValues.finish]);
+
+  useEffect(() => {
+    console.log(commentState);
+    const { visual, nose, palate, finish } = starValues;
+    const average = (visual + nose + palate + finish) / 4;
+    setStarValues({ ...starValues, average });
+    setCommentState({
+      ...commentState,
+      finalRating: average,
+    });
+  }, [
+    starValues.visual,
+    starValues.nose,
+    starValues.palate,
+    starValues.finish,
+    starValues.average,
+  ]);
+
+  useEffect(() => {
+    console.log("YOOOOOOOOOOOOOO");
+    setCommentState({
+      ...commentState,
+      whiskey_id: id,
+      user_id: user._id,
+    });
+  }, []);
 
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.visual.comment = e.target.value;
-    });
-    setCommentState(value);
-  };
-
-  const immerNoseRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.nose.rating = e.target.value;
     });
     setCommentState(value);
   };
@@ -72,20 +125,6 @@ function AddComment() {
     setCommentState(value);
   };
 
-  const immerPalateRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.palate.rating = e.target.value;
-    });
-    setCommentState(value);
-  };
-
-  const immerFinishRating = (e) => {
-    const value = produce(commentState, (draft) => {
-      draft.finish.rating = e.target.value;
-    });
-    setCommentState(value);
-  };
-
   const immerFinishComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.finish.comment = e.target.value;
@@ -100,122 +139,124 @@ function AddComment() {
     setCommentState(value);
   };
 
-  const findWhiskey = () => {
-    console.log(id);
-    console.log(user);
-    immerVisualRating();
-    setCommentState({ ...commentState, whiskey_id: id, user_id: user._id });
-  };
+  const { addComment } = useContext(GlobalCommentContext);
 
-  ///////////////
-
-  function submitComment(e) {
+  async function submitComment(e) {
     e.preventDefault();
-    findWhiskey();
-
-    console.log(commentState);
-    PostComment(id, commentState);
+    setShowModal(false);
+    await PostComment(id, commentState, addComment);
   }
 
   return (
     <>
-      <form onSubmit={submitComment}>
-        <div>
-          <label>Visual rating out of 5</label>
-          <StarRating
-            starValue={starValue}
-            setStarValue={setStarValue}
-          ></StarRating>
-          {console.log(starValue)}
-          <input
-            name="visual.rating"
-            value={starValue}
-            onChange={immerVisualRating}
-            type="hidden"
-          ></input>
-        </div>
-        <div>
-          <label>visual comment</label>
-          <input
-            class="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
-            cols="20"
-            rows="3"
+      <form className="" onSubmit={submitComment}>
+        <div className="my-2">
+          <div className="my-1 flex justify-between">
+            <label>Visual Rating</label>
+            <div>
+              <Rating
+                value={starValues.visual}
+                onChange={(_, value) => {
+                  setStarValues({ ...starValues, visual: value });
+                }}
+              ></Rating>
+            </div>
+          </div>
+          <textarea
+            className="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
+            cols="50"
+            rows="2"
             name="visual.comment"
             value={commentState.visual.comment}
             onChange={immerVisualComment}
-          ></input>
-        </div>
-        <div>
-          <label>Scent rating out of 5</label>
-          <textarea
-            cols="20"
-            rows="1"
-            name="nose.rating"
-            value={commentState.nose.rating}
-            onChange={immerNoseRating}
           ></textarea>
         </div>
-        <div>
-          <label>Scent comment</label>
+
+        <div className="my-2">
+          <div className="my-2 flex justify-between">
+            <label>Nose Rating</label>
+            <Rating
+              value={starValues.nose}
+              onChange={(_, value) => {
+                setStarValues({ ...starValues, nose: value });
+              }}
+            ></Rating>
+          </div>
+
           <textarea
-            cols="20"
-            rows="1"
+            className="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
+            cols="50"
+            rows="2"
             name="nose.comment"
             value={commentState.nose.comment}
             onChange={immerNoseComment}
           ></textarea>
         </div>
-        <div>
-          <label>Palate rating</label>
+
+        <div className="my-2">
+          <div className="my-2 flex justify-between">
+            <label>Palate Rating</label>
+            <Rating
+              value={starValues.palate}
+              onChange={(_, value) => {
+                setStarValues({ ...starValues, palate: value });
+              }}
+            ></Rating>
+          </div>
           <textarea
+            className="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
             cols="20"
-            rows="1"
-            name="palate.rating"
-            value={commentState.palate.rating}
-            onChange={immerPalateRating}
-          ></textarea>
-        </div>
-        <div>
-          <label>Palate comment</label>
-          <textarea
-            cols="20"
-            rows="1"
+            rows="2"
             name="palate.comment"
             value={commentState.palate.comment}
             onChange={immerPalateComment}
           ></textarea>
         </div>
-        <div>
-          <label>Finish rating</label>
+
+        <div className="my-2">
+          <div className="my-2 flex justify-between">
+            <label>Finish Rating</label>
+            <Rating
+              value={starValues.finish}
+              onChange={(_, value) => {
+                setStarValues({ ...starValues, finish: value });
+              }}
+            ></Rating>
+          </div>
+
           <textarea
-            cols="20"
-            rows="1"
-            name="finish.rating"
-            value={commentState.finish.rating}
-            onChange={immerFinishRating}
-          ></textarea>
-        </div>
-        <div>
-          <label>Finish comment</label>
-          <textarea
-            cols="20"
-            rows="1"
+            className="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
+            cols="50"
+            rows="2"
             name="finish.comment"
             value={commentState.finish.comment}
             onChange={immerFinishComment}
           ></textarea>
         </div>
+
         <div>
           <label>Final comment</label>
+          <br></br>
           <textarea
-            cols="20"
-            rows="1"
+            className="block p-4 w-full bg-gray-50 border border-gray-300 rounded-lg"
+            cols="50"
+            rows="2"
             name="finalComment"
             value={commentState.finalComment}
             onChange={immerFinalComment}
           ></textarea>
         </div>
-        <button>Submit comment</button>
+        <div className="flex justify-end">
+          <button
+            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            onClick={() => setShowModal(false)}
+          >
+            Close
+          </button>
+          <button className="mt-3 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+            Submit tasting
+          </button>
+        </div>
       </form>
     </>
   );
