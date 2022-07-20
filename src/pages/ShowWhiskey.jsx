@@ -61,7 +61,6 @@ function ShowWhiskey() {
             <TastingDetailsPreview
               comment={comment}
               user={user}
-              starValues={starValues}
               whiskey_id={id}
             />
           ))}

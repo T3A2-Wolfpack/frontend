@@ -9,7 +9,3 @@ export const ProtectedRoute = ({ component }) => {
 
   return <Component />;
 };
-
-
-
-

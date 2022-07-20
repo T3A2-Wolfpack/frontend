@@ -1,5 +1,4 @@
 import produce from "immer";
-
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
@@ -7,7 +6,6 @@ import { GlobalCommentContext } from "../../hooks/globalComment";
 import { useAuth0 } from "@auth0/auth0-react";
 import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
-
 
 function AddComment({ setShowModal, starValues, setStarValues }) {
   const { id } = useParams();
@@ -37,6 +35,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
   });
 
   useEffect(() => {
+    console.log(starValues.visual)
     setStarValues({ ...starValues, visual: starValues.visual });
     setCommentState({
       ...commentState,
@@ -45,6 +44,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
         comment: commentState.visual.comment,
       },
     });
+    console.log(commentState)
   }, [starValues.visual]);
 
   useEffect(() => {
@@ -69,33 +69,33 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
   }, [starValues.palate]);
 
-  useEffect(() => {
-    setStarValues({ ...starValues, finish: starValues.finish });
-    setCommentState({
-      ...commentState,
-      finish: {
-        rating: starValues.finish,
-        comment: commentState.finish.comment,
-      },
-    });
-  }, [starValues.finish]);
+  // useEffect(() => {
+  //   setStarValues({ ...starValues, finish: starValues.finish });
+  //   setCommentState({
+  //     ...commentState,
+  //     finish: {
+  //       rating: starValues.finish,
+  //       comment: commentState.finish.comment,
+  //     },
+  //   });
+  // }, [starValues.finish]);
 
-  useEffect(() => {
-    console.log(commentState);
-    const { visual, nose, palate, finish } = starValues;
-    const average = (visual + nose + palate + finish) / 4;
-    setStarValues({ ...starValues, average });
-    setCommentState({
-      ...commentState,
-      finalRating: average,
-    });
-  }, [
-    starValues.visual,
-    starValues.nose,
-    starValues.palate,
-    starValues.finish,
-    starValues.average,
-  ]);
+  // useEffect(() => {
+  //   console.log(commentState);
+  //   const { visual, nose, palate, finish } = starValues;
+  //   const average = (visual + nose + palate + finish) / 4;
+  //   setStarValues({ ...starValues, average });
+  //   setCommentState({
+  //     ...commentState,
+  //     finalRating: average,
+  //   });
+  // }, [
+  //   starValues.visual,
+  //   starValues.nose,
+  //   starValues.palate,
+  //   starValues.finish,
+  //   starValues.average,
+  // ]);
 
   useEffect(() => {
     console.log("YOOOOOOOOOOOOOO");
@@ -146,6 +146,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
   async function submitComment(e) {
     e.preventDefault();
     setShowModal(false);
+    console.log(commentState);
     await PostComment(id, commentState, addComment);
   }
 

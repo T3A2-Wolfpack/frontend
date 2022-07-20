@@ -17,22 +17,25 @@ import {
   GlobalWhiskeyContext,
   GlobalWhiskeyProvider,
 } from "../hooks/GlobalWhiskey";
-import { GlobalCommentContext, GlobalCommentProvider} from "../hooks/globalComment";
+import {
+  GlobalCommentContext,
+  GlobalCommentProvider,
+} from "../hooks/globalComment";
 
 // define api from backend
-const api = 'http://localhost:4000/api/whiskeys'
+const api = "http://localhost:4000/api/whiskeys";
 
 function App() {
   // state where we are pushing the newly added whiskey
 
-  const { isLoading } = useAuth0()
+  const { isLoading } = useAuth0();
 
   if (isLoading) {
-    return <Loading type={'cylon'} color={'red'} />
+    return <Loading type={"cylon"} color={"red"} />;
   }
 
   const { whiskeys } = useContext(GlobalWhiskeyContext);
-  const { comments } = useContext(GlobalCommentContext)
+  const { comments } = useContext(GlobalCommentContext);
 
   // // higher order component for showwhiskey
   const ShowWhiskeyHOC = () => {
@@ -54,7 +57,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/whiskeys" element={<Whiskeys />} />
-            <Route path="/newwhiskey" element={<ProtectedRoute component={NewWhiskey} />} />
+            <Route
+              path="/newwhiskey"
+              element={<ProtectedRoute component={NewWhiskey} />}
+            />
             <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
             <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
             <Route path="/profile" element={<Profile />} />
