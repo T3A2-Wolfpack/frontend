@@ -1,9 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import { useEffect, useState } from "react";
 import LoginButton from "../components/Login";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const [userMetadata, setUserMetadata] = useState(null)
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -16,7 +17,7 @@ const Profile = () => {
         <h2>{user.nickname}</h2>
         <p>{user.email}</p>
         <p>{user.sub}</p>
-        <p>{console.log(user)}</p>
+        <p></p>    
       </div>
     ) : (
       <>
@@ -25,6 +26,7 @@ const Profile = () => {
       </>
     )
   );
+
 };
 
 export default Profile;

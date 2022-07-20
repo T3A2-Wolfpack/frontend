@@ -3,11 +3,12 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { PostRequest } from "../axios/RetrieveWhiskeyFromApi";
 
 
-const api = import.meta.env.API_ENDPOINT || 'http://localhost:4000/api/whiskeys'
+const api = `${import.meta.env.VITE_API_SERVER_URL}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
 
 const initialFormState = {
   name: "",
@@ -23,6 +24,7 @@ const initialFormState = {
 function NewWhiskey() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const [image, setImage] = useState("")
+  const { getAccessTokenSilently } = useAuth0()
 
   const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
 
@@ -59,10 +61,12 @@ function NewWhiskey() {
     e.preventDefault();
     await postDetails()
     await addWhiskey(formState);
+    const token = await getAccessTokenSilently()
     await fetch(api, {
       method: "post",
       headers: {
         "Content-type": "application/json",
+        "authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         name: formState.name,

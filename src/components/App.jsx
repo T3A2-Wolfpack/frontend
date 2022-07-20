@@ -55,7 +55,7 @@ function App() {
             <Route path="/newwhiskey" element={<ProtectedRoute component={NewWhiskey} />} />
             <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
             <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
-            <Route path="/profile" element={<Profile  />} />
+            <Route path="/profile" element={<ProtectedRoute component={Profile}  />} />
           </Routes>
         </BrowserRouter>
       </GlobalWhiskeyProvider>
