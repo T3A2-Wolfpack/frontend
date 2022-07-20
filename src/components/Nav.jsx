@@ -1,14 +1,11 @@
-import { Fragment, useContext } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from "react-router-dom"
 import logo from "../images/hwhiskey-logo.png"
 import LoginButton from './Login'
 import LogoutButton from './Logout'
-import Profile from '../pages/Profile'
 import { useAuth0 } from '@auth0/auth0-react'
-import SearchBar from './SearchBar'
-import { GlobalWhiskeyContext } from '../hooks/GlobalWhiskey'
 
 
 // create resources for Link to map over 
@@ -24,7 +21,6 @@ function classNames(...classes) {
 
 function Nav() {
   const { isAuthenticated, user } = useAuth0()
-  const { whiskeys } = useContext(GlobalWhiskeyContext);
   return (
     <Disclosure as="nav" className="bg-amber-800">
       {({ open }) => (
@@ -55,10 +51,6 @@ function Nav() {
                     alt="Workflow"
                   />
                 </div>
-                <SearchBar
-                  whiskeys={whiskeys}
-                  className=" text-gray-300 hover:bg-amber-700 hover:text-white"
-                />
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (

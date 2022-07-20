@@ -20,7 +20,7 @@ function SearchBar({ whiskeys }) {
   };
 
   return (
-      <OutsideClickHandler onOutsideClick={() => {
+    <OutsideClickHandler onOutsideClick={() => {
           setSearch([])
     }}>
       <div className="search">
