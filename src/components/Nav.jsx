@@ -7,7 +7,7 @@ import LoginButton from './Login'
 import LogoutButton from './Logout'
 import Profile from '../pages/Profile'
 import { useAuth0 } from '@auth0/auth0-react'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 import { GlobalWhiskeyContext } from '../hooks/GlobalWhiskey'
 
 
@@ -55,10 +55,10 @@ function Nav() {
                     alt="Workflow"
                   />
                 </div>
-                <SearchBar
+                {/* <SearchBar
                   whiskeys={whiskeys}
                   className=" text-gray-300 hover:bg-amber-700 hover:text-white"
-                />
+                /> */}
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
