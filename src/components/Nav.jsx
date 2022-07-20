@@ -6,6 +6,8 @@ import logo from "../images/hwhiskey-logo.png"
 import LoginButton from './Login'
 import LogoutButton from './Logout'
 import { useAuth0 } from '@auth0/auth0-react'
+import { GlobalWhiskeyContext } from '../hooks/GlobalWhiskey'
+
 
 
 // create resources for Link to map over 

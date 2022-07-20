@@ -23,14 +23,6 @@ export function GetComments(id) {
   }
 }
 
-// export function PostComment(id, comment) {
-//   try {
-//     axios.post(`http://localhost:4000/api/whiskeys/${id}/tastings`, comment);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 export async function PostComment(id, comment, dispatch) {
   const response = await fetch(
     `http://localhost:4000/api/whiskeys/${id}/tastings`,
