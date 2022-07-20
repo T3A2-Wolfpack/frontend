@@ -79,7 +79,7 @@ function NewWhiskey() {
 
   return (
     <>
-      <div>New Whiskey</div>
+      <h1>New Whiskey</h1>
       <form onSubmit={formSubmit}>
         <div>
           <h2>Whiskey name</h2>

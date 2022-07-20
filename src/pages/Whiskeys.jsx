@@ -8,7 +8,7 @@ import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import { DeleteWhiskey } from "../axios/RetrieveWhiskeyFromApi";
 
 import { Link, useParams } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
+// import SearchBar from "../components/SearchBar";
 
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
@@ -18,7 +18,7 @@ function Whiskeys() {
     <>
       <RetrieveWhiskeyFromApi />
       <div className="min-h-screen min-w-screen bg-hero bg-scroll bg-cover bg-centre bg-repeat">
-        <h1 className="text-white text-6xl text-bold p-2">Whiskies:</h1>
+        <h1 className="text-white text-6xl text-bold p-2">Whiskeys:</h1>
 
         <div className="h-full lg:h-[100vh] w-[100vw] flex flex-wrap items-center justify-center text-white gap-8">
           {whiskeys.map((whiskey) => (
