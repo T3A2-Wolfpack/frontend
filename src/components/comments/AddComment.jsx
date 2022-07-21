@@ -36,6 +36,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     user_id: "",
   });
 
+  // Allows stars to work
   useEffect(() => {
     setStarValues({ ...starValues, visual: starValues.visual });
     setCommentState({
@@ -81,7 +82,6 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
   }, [starValues.finish]);
 
   useEffect(() => {
-    console.log(commentState);
     const { visual, nose, palate, finish } = starValues;
     const average = (visual + nose + palate + finish) / 4;
     setStarValues({ ...starValues, average });
@@ -97,8 +97,8 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     starValues.average,
   ]);
 
+  // set whiskey and user id to tasting
   useEffect(() => {
-    console.log("YOOOOOOOOOOOOOO");
     setCommentState({
       ...commentState,
       whiskey_id: id,
@@ -106,6 +106,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
   }, []);
 
+  // Allows nesting states to be accessed
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.visual.comment = e.target.value;

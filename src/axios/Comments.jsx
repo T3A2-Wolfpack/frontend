@@ -54,16 +54,3 @@ export async function DeleteComment(id, tasting_id, dispatch) {
   }
 }
 
-// export function DeleteTasting(id, tasting_id) {
-//   try {
-//     axios.delete(
-//       `http://localhost:4000/api/whiskeys/${id}/tasting/${tasting_id}`
-//     );
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// export function PostComments() {
-
-// }

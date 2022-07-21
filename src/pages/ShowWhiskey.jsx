@@ -1,12 +1,8 @@
 import React, { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import AddComment from "../components/comments/AddComment";
+import { useParams } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
-import NoWorkResult from "postcss/lib/no-work-result";
-import StarRating from "../components/StarRating";
-import WhiskeyDetails from "../components/WhiskeyDetails";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
