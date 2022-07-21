@@ -3,21 +3,21 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
+import Select from "react-select";
 
 
 
-const api = `${import.meta.env.API_ENDPOINT}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
+const api = `${import.meta.env.VITE_API_SERVER_URL}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
 
 const initialFormState = {
   name: "",
   description: "",
   age: "",
-  region: "",
-  type: "",
-  price: "",
+  region: "Scotch",
+  type: "Single Malt",
+  price: "Cheap",
   image: ""
 };
-
 
 function NewWhiskey() {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
@@ -51,6 +51,8 @@ function NewWhiskey() {
       payload: e.target.value,
     });
   };
+
+
 
   let nav = useNavigate();
 
@@ -120,15 +122,18 @@ function NewWhiskey() {
             ></input>
           </div>
           <div>
-          <label for="region" className="block text-lg font-medium text-amber-700">Region</label>
+          <label required for="region" className="block text-lg font-medium text-amber-700">Region
           <select
-              required
+              defaultValue="Scotch"
               id="region"
+              type="text"
               name="region"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
               value={formState.region}
               onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
             >
+              <option value="none" disabled="disabled">Please Select...</option>
               <option value="Scotch">Scotch</option>
               <option value="Irish">Irish</option>
               <option value="American">American</option>
@@ -136,17 +141,21 @@ function NewWhiskey() {
               <option value="Canadian">Canadian</option>
               <option value="Other">Other</option>
             </select>
+            </label>
           </div>
           <div>
-          <label for="type" className="block text-lg font-medium text-amber-700">Type</label>
+          <label required for="type" className="block text-lg font-medium text-amber-700">Type
           <select
-              required
+              defaultValue="Single Malt"
               id="type"
+              type="text"
               name="type"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
               value={formState.type}
               onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
             >
+              <option defaultValue value="none" disabled="disabled">Please Select...</option>
               <option value="Single Malt">Single Malt</option>
               <option value="Blended">Blended</option>
               <option value="Bourbon">Bourbon</option>
@@ -156,23 +165,28 @@ function NewWhiskey() {
               <option value="White">White</option>
               <option value="Other">Other</option>
             </select>
+            </label>
           </div>
           <div>
-          <label for="price" className="block text-lg font-medium text-amber-700">Budget</label>
+          <label required for="price" className="block text-lg font-medium text-amber-700">Budget
           <select
-              required
+              
+              type="text"
               id="price"
               name="price"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
               value={formState.price}
               onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
             >
+              <option defaultValue value="none" disabled>Please Select...</option>
               <option value="Cheap">Cheap and nasty</option>
               <option value="Average">Average Everyday</option>
               <option value="Above Average">Not cheap, but not too bad.</option>
               <option value="Expensive">It will set you back.</option>
               <option value="Top Shelf">Top Shelf</option>
             </select>
+            </label>
           </div>
             <div>
             <input
