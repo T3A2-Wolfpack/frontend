@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
-import { GetComments } from "../axios/Comments";
+// import { GetComments } from "../axios/Comments";
 import Rating from "@mui/material/Rating";
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
 import TastingModal from "../components/TastingModal";
@@ -17,6 +17,9 @@ function ShowWhiskey() {
   GetComments(id);
   console.log(comments);
   console.log(user);
+
+
+  
 
  
   const whiskeyRating = () => {
@@ -51,6 +54,7 @@ function ShowWhiskey() {
 
   return (
     <>
+      {GetComments(id)}
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">
         <div className="flex justify-between">
           <h3>{whiskey ? whiskey.name : null}</h3>
