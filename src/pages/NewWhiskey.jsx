@@ -1,28 +1,27 @@
-import Whiskeys from "./Whiskeys";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
-import formReducer from "../hooks/formReducer";
 
 
-const api = `${import.meta.env.API_ENDPOINT}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
-
-const initialFormState = {
-  name: "",
-  description: "",
-  age: "",
-  region: "",
-  type: "",
-  price: "",
-  image: ""
-};
+const api =
+  `${import.meta.env.VITE_API_SERVER_URL}/api/whiskeys` ||
+  "http://localhost:4000/api/whiskeys";
 
 
 function NewWhiskey() {
-  const [formState, dispatch] = useReducer(formReducer, initialFormState);
+  // State for whiskey
+  const [whiskeyState, setWhiskeyState] = useState({
+    name: "",
+    description: "",
+    age: "",
+    region: "Scotch",
+    type: "Single malt",
+    price: "Cheap and nasty",
+    image: "",
+  });
   const [image, setImage] = useState("")
 
-  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
+  const { addWhiskey } = useContext(GlobalWhiskeyContext);
 
   const postDetails = () => {
     const data = new FormData()
@@ -35,45 +34,41 @@ function NewWhiskey() {
     })
       .then(res => res.json())
       .then(data => {
-        formState.image = data.url
-        console.log(formState.image)
+        whiskeyState.image = data.url
       })
       .catch(err => {
         console.log(err)
       })
   }
 
+  // DRY dynamic handling of onChange
   const handleTextInput = (e) => {
-    dispatch({
-      type: "TEXT_INPUT",
-      field: e.target.name,
-      payload: e.target.value,
-    });
-  };
+    setWhiskeyState({...whiskeyState, [e.target.name] : e.target.value})
+  }
+
 
   let nav = useNavigate();
 
   async function formSubmit(e) {
     e.preventDefault();
     await postDetails()
-    await addWhiskey(formState);
+    await addWhiskey(whiskeyState);
     await fetch(api, {
       method: "post",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        name: formState.name,
-        description: formState.description,
-        age: formState.age,
-        region: formState.region,
-        type: formState.type,
-        price: formState.price,
-        image: formState.image,
+        name: whiskeyState.name,
+        description: whiskeyState.description,
+        age: whiskeyState.age,
+        region: whiskeyState.region,
+        type: whiskeyState.type,
+        price: whiskeyState.price,
+        image: whiskeyState.image,
       }),
-    }).then(() => console.log(formState));
+    })
     nav("/whiskeys");
-    console.log(formState)
 
   }
 
@@ -91,7 +86,7 @@ function NewWhiskey() {
               type="text"
               name="name"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.name}
+              value={whiskeyState.name}
               onChange={(e) => handleTextInput(e)}
             ></input>
           </div>
@@ -102,7 +97,7 @@ function NewWhiskey() {
               rows="3"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
               name="description"
-              value={formState.description}
+              value={whiskeyState.description}
               onChange={(e) => handleTextInput(e)}
             ></textarea>
           </div>
@@ -114,7 +109,7 @@ function NewWhiskey() {
               type="number"
               name="age"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.age}
+              value={whiskeyState.age}
               onChange={(e) => handleTextInput(e)}
             ></input>
           </div>
@@ -125,7 +120,7 @@ function NewWhiskey() {
               id="region"
               name="region"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.region}
+              value={whiskeyState.region}
               onChange={(e) => handleTextInput(e)}
             >
               <option value="Scotch">Scotch</option>
@@ -143,7 +138,7 @@ function NewWhiskey() {
               id="type"
               name="type"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.type}
+              value={whiskeyState.type}
               onChange={(e) => handleTextInput(e)}
             >
               <option value="Single Malt">Single Malt</option>
@@ -163,7 +158,7 @@ function NewWhiskey() {
               id="price"
               name="price"
               className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
-              value={formState.price}
+              value={whiskeyState.price}
               onChange={(e) => handleTextInput(e)}
             >
               <option value="Cheap">Cheap and nasty</option>
