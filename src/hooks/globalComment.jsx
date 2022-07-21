@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import commentReducer from "./commentReducer";
+// Context file for comment
 
 const initialState = {
   comments: [],
@@ -9,7 +10,7 @@ export const GlobalCommentContext = createContext(initialState);
 
 export const GlobalCommentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(commentReducer, initialState);
-
+// comment dispatch
   function addComment(comment) {
     dispatch({
       type: "ADD_COMMENT",

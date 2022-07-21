@@ -1,3 +1,4 @@
+// whiskey reducer
 export default function whiskeyReducer(state, action) {
   switch (action.type) {
     case "ADD_WHISKEY":

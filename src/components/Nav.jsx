@@ -1,13 +1,9 @@
 import { Fragment, useContext, useState } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import logo from "../images/hwhiskey-logo.png";
-
-import Profile from "../pages/Profile";
-import { useAuth0 } from "@auth0/auth0-react";
-import SearchBar from "./SearchBar";
-import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { GlobalWhiskeyContext } from '../hooks/GlobalWhiskey'
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { useLogout } from "../hooks/useLogout";
@@ -61,10 +57,6 @@ function Nav() {
                     alt="Workflow"
                   />
                 </div>
-                <SearchBar
-                  whiskeys={whiskeys}
-                  className=" text-gray-300 hover:bg-amber-700 hover:text-white"
-                />
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (

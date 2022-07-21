@@ -6,8 +6,10 @@ import { GlobalCommentContext } from "../../hooks/globalComment";
 import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
+// import {addComment} from "../../hooks/globalComment"
 
 function AddComment({ setShowModal }) {
+  const { addComment } = GlobalCommentContext;
   const { id } = useParams();
   const { user } = useAuthContext();
   console.log("in add comment");
@@ -34,6 +36,7 @@ function AddComment({ setShowModal }) {
     user_id: "",
   });
 
+  // Updates star values for each rating component
   useEffect(() => {
     const { visual, nose, palate, finish } = commentState;
     const average =
@@ -50,6 +53,7 @@ function AddComment({ setShowModal }) {
     commentState.finalRating,
   ]);
 
+  // set whiskey and user id to tasting
   useEffect(() => {
     setCommentState({
       ...commentState,
@@ -58,6 +62,7 @@ function AddComment({ setShowModal }) {
     });
   }, []);
 
+  // Allows nesting states to be accessed
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.visual.comment = e.target.value;
@@ -92,8 +97,6 @@ function AddComment({ setShowModal }) {
     });
     setCommentState(value);
   };
-
-  const { addComment } = useContext(GlobalCommentContext);
 
   async function submitComment(e) {
     console.log(`state: ${commentState.visual.rating}`);

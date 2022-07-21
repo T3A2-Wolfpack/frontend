@@ -1,28 +1,28 @@
-import Whiskeys from "./Whiskeys";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
-import formReducer from "../hooks/formReducer";
+import Select from "react-select";
 
 
-const api = `${import.meta.env.API_ENDPOINT}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
 
-const initialFormState = {
-  name: "",
-  description: "",
-  age: "",
-  region: "",
-  type: "",
-  price: "",
-  image: ""
-};
+
+const api = `${import.meta.env.VITE_API_SERVER_URL}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
 
 
 function NewWhiskey() {
-  const [formState, dispatch] = useReducer(formReducer, initialFormState);
+  // State for whiskey
+  const [whiskeyState, setWhiskeyState] = useState({
+    name: "",
+    description: "",
+    age: "",
+    region: "Scotch",
+    type: "Single malt",
+    price: "Cheap and nasty",
+    image: "",
+  });
   const [image, setImage] = useState("")
 
-  const { addWhiskey, whiskeys } = useContext(GlobalWhiskeyContext);
+  const { addWhiskey } = useContext(GlobalWhiskeyContext);
 
   const postDetails = () => {
     const data = new FormData()
@@ -35,132 +35,174 @@ function NewWhiskey() {
     })
       .then(res => res.json())
       .then(data => {
-        formState.image = data.url
-        console.log(formState.image)
+        whiskeyState.image = data.url
       })
       .catch(err => {
         console.log(err)
       })
   }
 
+  // DRY dynamic handling of onChange
   const handleTextInput = (e) => {
-    dispatch({
-      type: "TEXT_INPUT",
-      field: e.target.name,
-      payload: e.target.value,
-    });
-  };
+    setWhiskeyState({...whiskeyState, [e.target.name] : e.target.value})
+  }
+
+
+
 
   let nav = useNavigate();
 
   async function formSubmit(e) {
     e.preventDefault();
     await postDetails()
-    await addWhiskey(formState);
+    await addWhiskey(whiskeyState);
     await fetch(api, {
       method: "post",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        name: formState.name,
-        description: formState.description,
-        age: formState.age,
-        region: formState.region,
-        type: formState.type,
-        price: formState.price,
-        image: formState.image,
+        name: whiskeyState.name,
+        description: whiskeyState.description,
+        age: whiskeyState.age,
+        region: whiskeyState.region,
+        type: whiskeyState.type,
+        price: whiskeyState.price,
+        image: whiskeyState.image,
       }),
-    }).then(() => console.log(formState));
+    })
     nav("/whiskeys");
-    console.log(formState)
 
   }
 
   return (
-    <>
-      <div>New Whiskey</div>
-      <form onSubmit={formSubmit}>
-        <div>
-          <h2>Whiskey name</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="name"
-            value={formState.name}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
-          <h2>Description</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="description"
-            value={formState.description}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
-          <h2>Whiskey age</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="age"
-            value={formState.age}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
-          <h2>Region</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="region"
-            value={formState.region}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
-          <h2>Type</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="type"
-            value={formState.type}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
-        <div>
-          <h2>Price</h2>
-          <textarea
-            required
-            cols="20"
-            rows="1"
-            name="price"
-            value={formState.price}
-            onChange={(e) => handleTextInput(e)}
-          ></textarea>
-        </div>
+    <div className="bg-hero bg-cover min-h-screen min-w-full prose lg:prose-xl">
+      <h1 className="h-1 text-center text-white mb-5 pb-5">Add New Whiskey</h1>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-orange-200 py-8 px-6 shadow rounded-lg sm:px-10">
+        <form className="mb-0 space-y-6" onSubmit={formSubmit}>
           <div>
+            <label for="name" className="block text-lg font-medium text-amber-700">Whiskey name</label>
+            <input
+              required
+              id="name"
+              type="text"
+              name="name"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              value={whiskeyState.name}
+              onChange={(e) => handleTextInput(e)}
+            ></input>
+          </div>
+          <div>
+          <label for="description" className="block text-lg font-medium text-amber-700">Description</label>
+            <textarea
+              required
+              rows="3"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              name="description"
+              value={whiskeyState.description}
+              onChange={(e) => handleTextInput(e)}
+            ></textarea>
+          </div>
+          <div>
+          <label for="age" className="block text-lg font-medium text-amber-700">Whiskey age</label>
           <input
-            required
-            type="file"
-            name="image"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
+              required
+              id="age"
+              type="number"
+              name="age"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              value={whiskeyState.age}
+              onChange={(e) => handleTextInput(e)}
+            ></input>
+          </div>
+          <div>
+          <label required for="region" className="block text-lg font-medium text-amber-700">Region
+          <select
+              defaultValue="Scotch"
+              id="region"
+              type="text"
+              name="region"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              value={whiskeyState.region}
+              onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
+            >
+              <option value="none" disabled="disabled">Please Select...</option>
+              <option value="Scotch">Scotch</option>
+              <option value="Irish">Irish</option>
+              <option value="American">American</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Canadian">Canadian</option>
+              <option value="Other">Other</option>
+            </select>
+            </label>
+          </div>
+          <div>
+          <label required for="type" className="block text-lg font-medium text-amber-700">Type
+          <select
+              defaultValue="Single Malt"
+              id="type"
+              type="text"
+              name="type"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              value={whiskeyState.type}
+              onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
+            >
+              <option defaultValue value="none" disabled="disabled">Please Select...</option>
+              <option value="Single Malt">Single Malt</option>
+              <option value="Blended">Blended</option>
+              <option value="Bourbon">Bourbon</option>
+              <option value="Tennessee">Tennessee</option>
+              <option value="Rye">Rye</option>
+              <option value="Sour Mash">Sour Mash</option>
+              <option value="White">White</option>
+              <option value="Other">Other</option>
+            </select>
+            </label>
+          </div>
+          <div>
+          <label required for="price" className="block text-lg font-medium text-amber-700">Budget
+          <select
+              
+              type="text"
+              id="price"
+              name="price"
+              className="w-full border border-gray-300 px-3 py-3 rounded-lg shadow-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-400"
+              value={whiskeyState.price}
+              onChange={(e) => handleTextInput(e)}
+              onBlur={(e) => handleTextInput(e)}
+            >
+              <option defaultValue value="none" disabled>Please Select...</option>
+              <option value="Cheap">Cheap and nasty</option>
+              <option value="Average">Average Everyday</option>
+              <option value="Above Average">Not cheap, but not too bad.</option>
+              <option value="Expensive">It will set you back.</option>
+              <option value="Top Shelf">Top Shelf</option>
+            </select>
+            </label>
+          </div>
+            <div>
+            <input
+              required
+              type="file"
+              name="image"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </div>
+          <button className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+            Add whiskey
+          </button>
+          <div>
+            <Link className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" to="/">
+              Cancel
+            </Link>
+          </div>
+        </form>
         </div>
-        <button>Add whiskey</button>
-        <div>
-          <Link to="/">Cancel</Link>
-        </div>
-      </form>
-    </>
+      </div>
+    </div>
   );
 }
 
