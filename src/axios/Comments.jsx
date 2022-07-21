@@ -6,10 +6,10 @@ import { GlobalCommentContext } from "../hooks/globalComment";
 
 // Get tastings for a whiskey
 export function GetComments(id) {
-  const { showComments } = useContext(GlobalCommentContext);
+  const { comments, showComments } = useContext(GlobalCommentContext);
   try {
     useEffect(() => {
-      async function retrieveComments() {
+      const retrieveComments = async () => {
         const res = await axios.get(
           `http://localhost:4000/api/whiskeys/${id}/tastings`
         );
@@ -21,6 +21,8 @@ export function GetComments(id) {
     console.error(error);
   }
 }
+
+
 
 
 // Post a tasting for a whiskey
@@ -41,6 +43,14 @@ export async function PostComment(id, comment, dispatch) {
     dispatch(json);
   }
 }
+
+// export function PostComment(id, comment) {
+//   try {
+//     axios.post(`http://localhost:4000/api/whiskeys/${id}/tastings`, comment);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
 
 // Delete a tasting
