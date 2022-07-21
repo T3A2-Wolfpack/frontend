@@ -7,6 +7,7 @@ import ReactPaginate from "react-paginate";
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const [searchWhiskey, setSearchWhiskey] = useState("");
+  // Pagination
   const [page, setPage] = useState(0)
   const whiskeysPerPage = 6
   const pagesVisited = page * whiskeysPerPage

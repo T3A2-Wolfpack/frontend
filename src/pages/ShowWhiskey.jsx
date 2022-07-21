@@ -8,7 +8,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
 
-import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import TastingModal from "../components/TastingModal";
 import { useState } from "react";
 
