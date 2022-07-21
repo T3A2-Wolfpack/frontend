@@ -32,7 +32,6 @@ function ShowWhiskey() {
 
   return (
     <>
-
       {GetComments(id)}
 
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">
@@ -42,11 +41,11 @@ function ShowWhiskey() {
         </div>
         <div className="flex justify-between">
           <img src={whiskey ? whiskey.image : null} className="w-20" />
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas,
-            nemo a. Vero itaque ut maiores, cupiditate soluta pariatur alias non
-            modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?
-          </p>
+          <p>{whiskey ? whiskey.description : null}</p>
+          <p>{whiskey ? whiskey.age : null}</p>
+          <p>{whiskey ? whiskey.region : null}</p>
+          <p>{whiskey ? whiskey.type : null}</p>
+          <p>{whiskey ? whiskey.price : null}</p>
         </div>
         <TastingModal
           starValues={starValues}

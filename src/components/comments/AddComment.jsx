@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 // Function to add whiskey
 function AddComment({ setShowModal, starValues, setStarValues }) {
-  const { addComment } = useContext(GlobalCommentContext);
+  
   const { id } = useParams();
   const { user } = useAuth0();
 
