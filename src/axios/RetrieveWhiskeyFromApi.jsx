@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import { useParams } from "react-router-dom";
+
 
 // API connection point
 const api =
   "https://frozen-bayou-80971.herokuapp.com/api/whiskeys" ||
   "http://localhost:4000/api/whiskeys";
+
 
   // Retrieve all whiskeys from database
 export function RetrieveWhiskeyFromApi() {
@@ -25,6 +26,7 @@ export function RetrieveWhiskeyFromApi() {
   }
 }
 
+
 // Post whiskey to database
 export function PostRequest(formState) {
   try {
@@ -33,6 +35,7 @@ export function PostRequest(formState) {
     console.error(error);
   }
 }
+
 
 // Delete whiskey from database
 export function DeleteWhiskey(id) {

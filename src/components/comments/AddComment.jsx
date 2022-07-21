@@ -36,6 +36,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     user_id: "",
   });
 
+
   // Updates star values for each rating component
   useEffect(() => {
     setStarValues({ ...starValues, visual: starValues.visual });
@@ -98,7 +99,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     starValues.average,
   ]);
 
-  // Sets whiskey id and user id
+  // set whiskey and user id to tasting
   useEffect(() => {
     setCommentState({
       ...commentState,
@@ -107,7 +108,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
   }, []);
 
-  // Allows updating of nested states and DRYer than spreading out twice
+  // Allows nesting states to be accessed
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.visual.comment = e.target.value;

@@ -24,6 +24,7 @@ function EditAWhiskey() {
 
   const currentWhiskeyId = id;
 
+  // Finds whiskey and makes sure correct whiskey
   useEffect(() => {
     if (whiskeys.length >= 0) {
       const whiskeyId = currentWhiskeyId;
