@@ -6,7 +6,7 @@ import { GlobalCommentContext } from "../../hooks/globalComment";
 import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-// import {addComment} from "../../hooks/globalComment"
+
 
 function AddComment({ setShowModal }) {
   const { addComment } = GlobalCommentContext;

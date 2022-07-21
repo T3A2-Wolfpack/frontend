@@ -14,9 +14,12 @@ function ShowWhiskey() {
   const { user } = useAuthContext();
   const { id } = useParams();
   const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
-  GetComments(id);
+  // GetComments(id);
   console.log(comments);
   console.log(user);
+
+
+  
 
  
   const whiskeyRating = () => {
@@ -51,6 +54,8 @@ function ShowWhiskey() {
 
   return (
     <>
+
+      {GetComments(id)}
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">
         <div className="flex justify-between">
           <h3>{whiskey ? whiskey.name : null}</h3>
