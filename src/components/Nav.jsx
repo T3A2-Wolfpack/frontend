@@ -3,8 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import logo from "../images/hwhiskey-logo.png";
-import LoginButton from "./Login";
-import LogoutButton from "./Logout";
+
 import Profile from "../pages/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "./SearchBar";

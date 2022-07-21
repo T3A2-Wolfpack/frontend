@@ -4,15 +4,11 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "../pages/Home";
 import NewWhiskey from "../pages/NewWhiskey";
-import LogIn from "../pages/LogIn";
-import Register from "../pages/Register";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
-import { ProtectedRoute } from "./ProtectedRoute";
-import { AuthContextProvider } from "../context/AuthContext";
 
 import {
   GlobalWhiskeyContext,
@@ -22,13 +18,12 @@ import {
   GlobalCommentContext,
   GlobalCommentProvider,
 } from "../hooks/globalComment";
+import { AuthContextProvider } from "../context/AuthContext";
 
 // define api from backend
 const api = "http://localhost:4000/api/whiskeys";
 
 function App() {
-
-
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext);
 
@@ -51,13 +46,11 @@ function App() {
           <BrowserRouter>
             <Nav />
             <Routes>
-              <Route path="/login" element={<LogIn />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/" element={<Home />} />
               <Route path="/whiskeys" element={<Whiskeys />} />
               <Route
                 path="/newwhiskey"
-                element={<ProtectedRoute component={NewWhiskey} />}
+                element={<NewWhiskey />}
               />
               <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
               <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
