@@ -3,12 +3,14 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
-// api connection
+
+// API connection point
 const api =
   "https://frozen-bayou-80971.herokuapp.com/api/whiskeys" ||
   "http://localhost:4000/api/whiskeys";
 
-  // Retrieve all whiskeys from db
+
+  // Retrieve all whiskeys from database
 export function RetrieveWhiskeyFromApi() {
   const { showWhiskeys } = useContext(GlobalWhiskeyContext);
   try {
@@ -24,16 +26,18 @@ export function RetrieveWhiskeyFromApi() {
   }
 }
 
-// Add a whiskey
+
+// Post whiskey to database
 export function PostRequest(formState) {
   try {
-    const res = axios.post(api, formState);
+    axios.post(api, formState);
   } catch (error) {
     console.error(error);
   }
 }
 
-// Delete whiskey
+
+// Delete whiskey from database
 export function DeleteWhiskey(id) {
   try {
     axios.delete(`${api}/${id}`)
@@ -42,7 +46,7 @@ export function DeleteWhiskey(id) {
   }
 }
 
-// update a whiskey
+// Update a whiskey from database
 export function PatchWhiskey(id, whiskey) {
   try {
     axios.patch((`${api}/${id}`), whiskey)
@@ -51,5 +55,5 @@ export function PatchWhiskey(id, whiskey) {
   }
 }
 
-// If status = 200 dispatch global context.
+
 
