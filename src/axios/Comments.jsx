@@ -5,6 +5,7 @@ import { GlobalCommentContext } from "../hooks/globalComment";
 import { useParams } from "react-router-dom";
 import AddComment from "../components/comments/AddComment";
 
+// Get tastings
 export function GetComments(id) {
   const { comments, showComments } = useContext(GlobalCommentContext);
   try {
@@ -14,7 +15,6 @@ export function GetComments(id) {
           `http://localhost:4000/api/whiskeys/${id}/tastings`
         );
         await showComments(res.data);
-        // await showComments(res.data);
       }
       retrieveComments();
     }, [PostComment]);
@@ -23,6 +23,7 @@ export function GetComments(id) {
   }
 }
 
+// Post tastings
 export async function PostComment(id, comment, dispatch) {
   const response = await fetch(
     `http://localhost:4000/api/whiskeys/${id}/tastings`,
@@ -41,6 +42,7 @@ export async function PostComment(id, comment, dispatch) {
   }
 }
 
+// Delete a tasting
 export async function DeleteComment(id, tasting_id, dispatch) {
   const response = await fetch(
     `http://localhost:4000/api/whiskeys/${id}/tastings/${tasting_id}`,
