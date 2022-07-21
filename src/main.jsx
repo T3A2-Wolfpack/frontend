@@ -1,17 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './components/App'
-import './index.css'
-import dotenv from 'dotenv'
-import { Auth0Provider } from '@auth0/auth0-react'
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./components/App";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Auth0Provider
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENTID}
-      redirectUri={window.location.origin}
-    >
+  <React.StrictMode>
       <App />
-    </Auth0Provider>
+  </React.StrictMode>
 );

@@ -31,7 +31,7 @@ export const GlobalCommentProvider = ({ children }) => {
       data: comments,
     });
   }
-
+  console.log("in comment provider")
   return (
     <GlobalCommentContext.Provider
       value={{

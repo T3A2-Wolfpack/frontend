@@ -37,7 +37,7 @@ export const GlobalWhiskeyProvider = ({ children }) => {
       data: whiskeys,
     });
   }
-
+  console.log("in whiskey provider")
   return (
     <GlobalWhiskeyContext.Provider
       value={{

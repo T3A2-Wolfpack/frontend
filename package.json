@@ -21,6 +21,7 @@
     "headlessui": "^0.0.0",
     "heroicons": "^1.0.6",
     "immer": "^9.0.15",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "postcss-100vh-fix": "^1.0.2",
     "react": "^18.0.0",
