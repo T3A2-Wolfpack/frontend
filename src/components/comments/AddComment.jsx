@@ -1,5 +1,4 @@
 import produce from "immer";
-
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
@@ -8,8 +7,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
 
-
+// Function to add whiskey
 function AddComment({ setShowModal, starValues, setStarValues }) {
+  const { addComment } = useContext(GlobalCommentContext);
   const { id } = useParams();
   const { user } = useAuth0();
 
@@ -36,7 +36,8 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     user_id: "",
   });
 
-  // Allows stars to work
+
+  // Updates star values for each rating component
   useEffect(() => {
     setStarValues({ ...starValues, visual: starValues.visual });
     setCommentState({
@@ -81,6 +82,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
   }, [starValues.finish]);
 
+  // Creates final rating after starvalues are finalised.
   useEffect(() => {
     const { visual, nose, palate, finish } = starValues;
     const average = (visual + nose + palate + finish) / 4;
@@ -141,8 +143,6 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
     setCommentState(value);
   };
-
-  const { addComment } = useContext(GlobalCommentContext);
 
   async function submitComment(e) {
     e.preventDefault();
