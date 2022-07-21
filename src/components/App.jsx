@@ -4,14 +4,15 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "../pages/Home";
 import NewWhiskey from "../pages/NewWhiskey";
+import LogIn from "../pages/LogIn";
+import Register from "../pages/Register";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import { ProtectedRoute } from "./ProtectedRoute";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Loading } from "./Loading";
+import { AuthContextProvider } from "../context/AuthContext";
 
 import {
   GlobalWhiskeyContext,
@@ -26,13 +27,7 @@ import {
 const api = "http://localhost:4000/api/whiskeys";
 
 function App() {
-  // state where we are pushing the newly added whiskey
 
-  const { isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <Loading type={"cylon"} color={"red"} />;
-  }
 
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext);
@@ -49,25 +44,29 @@ function App() {
   };
 
   return (
-    <GlobalCommentProvider>
-      <GlobalWhiskeyProvider>
-        <RetrieveWhiskeyFromApi />
-        <BrowserRouter>
-          <Nav />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/whiskeys" element={<Whiskeys />} />
-            <Route
-              path="/newwhiskey"
-              element={<ProtectedRoute component={NewWhiskey} />}
-            />
-            <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
-            <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </BrowserRouter>
-      </GlobalWhiskeyProvider>
-    </GlobalCommentProvider>
+    <AuthContextProvider>
+      <GlobalCommentProvider>
+        <GlobalWhiskeyProvider>
+          <RetrieveWhiskeyFromApi />
+          <BrowserRouter>
+            <Nav />
+            <Routes>
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/whiskeys" element={<Whiskeys />} />
+              <Route
+                path="/newwhiskey"
+                element={<ProtectedRoute component={NewWhiskey} />}
+              />
+              <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
+              <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </BrowserRouter>
+        </GlobalWhiskeyProvider>
+      </GlobalCommentProvider>
+    </AuthContextProvider>
   );
 }
 

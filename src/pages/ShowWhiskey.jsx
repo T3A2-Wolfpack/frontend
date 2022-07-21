@@ -1,44 +1,64 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
-import NoWorkResult from "postcss/lib/no-work-result";
-import StarRating from "../components/StarRating";
-import WhiskeyDetails from "../components/WhiskeyDetails";
-
-import { useAuth0 } from "@auth0/auth0-react";
-
+import Rating from "@mui/material/Rating";
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
-
-import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import TastingModal from "../components/TastingModal";
-import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function ShowWhiskey() {
-  const { whiskeys } = useContext(GlobalWhiskeyContext);
+  const { whiskeys, editWhiskey } = useContext(GlobalWhiskeyContext);
   const { comments } = useContext(GlobalCommentContext);
-  const { user } = useAuth0();
+  const { user } = useAuthContext();
   const { id } = useParams();
   const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
-  const [starValues, setStarValues] = useState({
-    visual: 0,
-    nose: 0,
-    palate: 0,
-    finish: 0,
-    average: 0,
-  });
+  GetComments(id);
+  console.log(comments);
+  console.log(user);
+
+ 
+  const whiskeyRating = () => {
+    let counter = 0;
+    for (const element of comments) {
+      counter = counter + element.finalRating;
+    }
+    return counter / comments.length;
+  };
+
+  const updateRating = async () => {
+    const response = await fetch(`http://localhost:4000/api/whiskeys/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ ...whiskey, finalRating: whiskeyRating() }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    if (response.ok) {
+    }
+  };
+
+  // useEffect(() => {
+  //   updateRating();
+  // }, [comments]);
+
+  // useEffect(() => {
+
+  // }, [third])
+  
 
   return (
     <>
-
-      {GetComments(id)}
-
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">
         <div className="flex justify-between">
           <h3>{whiskey ? whiskey.name : null}</h3>
-          <p>5 Stars</p>
+          <Rating
+            value={comments ? whiskeyRating() : 0}
+            precision={0.25}
+            readOnly
+          ></Rating>
         </div>
         <div className="flex justify-between">
           <img src={whiskey ? whiskey.image : null} className="w-20" />
@@ -48,10 +68,13 @@ function ShowWhiskey() {
             modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?
           </p>
         </div>
-        <TastingModal
-          starValues={starValues}
-          setStarValues={setStarValues}
-        ></TastingModal>
+        {user && comments.some((e) => e.user_id === user._id) ? (
+          <>
+            <div>You've already made a tasting</div>
+          </>
+        ) : (
+          <TastingModal></TastingModal>
+        )}
       </div>
 
       <div className="container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">

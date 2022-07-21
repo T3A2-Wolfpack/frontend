@@ -40,11 +40,25 @@ export function DeleteWhiskey(id) {
   }
 }
 
-export function PatchWhiskey(id, whiskey) {
-  try {
-    axios.patch((`${api}/${id}`), whiskey)
-  } catch (error) {
-    console.error(error)
+// export function PatchWhiskey(id, whiskey) {
+//   try {
+//     axios.patch((`${api}/${id}`), whiskey)
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
+
+export async function PatchWhiskey(id, whiskey) {
+  const response = await fetch(`${api}/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(whiskey),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  if (response.ok) {
+    console.log("whiskey updated:", json);
   }
 }
 

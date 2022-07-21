@@ -22,14 +22,14 @@ export default function TastingDetailsModal({ comment }) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex flex-col items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
-                    User name's Tasting
-                  </h3>
-                  {/* <Rating
+                  <Rating
                     value={comment.finalRating}
                     precision={0.25}
                     readOnly
-                  ></Rating> */}
+                  ></Rating>
+                  <h3 className="text-3xl font-semibold">
+                    User name's Tasting
+                  </h3>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto flex-col">
@@ -41,7 +41,7 @@ export default function TastingDetailsModal({ comment }) {
                       readOnly
                     ></Rating>
                   </div>
-                  <p>{comment.visual.comment}</p>
+                  <p className="text-sm my-1">{comment.visual.comment}</p>
 
                   <div className="flex justify-between">
                     <h3>Nose</h3>
@@ -51,7 +51,7 @@ export default function TastingDetailsModal({ comment }) {
                       readOnly
                     ></Rating>
                   </div>
-                  <p>{comment.nose.comment}</p>
+                  <p className="text-sm my-1">{comment.nose.comment}</p>
 
                   <div className="flex justify-between">
                     <h3>Palate</h3>
@@ -61,17 +61,17 @@ export default function TastingDetailsModal({ comment }) {
                       readOnly
                     ></Rating>
                   </div>
-                  <p>{comment.palate.comment}</p>
+                  <p className="text-sm my-1">{comment.palate.comment}</p>
 
                   <div className="flex justify-between">
                     <h3>Finish</h3>
                     <Rating
-                      value={comment.palate.finish}
+                      value={comment.finish.rating}
                       precision={0.25}
                       readOnly
                     ></Rating>
                   </div>
-                  <p>{comment.palate.comment}</p>
+                  <p className="text-sm my-1">{comment.finish.comment}</p>
 
                   <div className="flex justify-between">
                     <h2 className="border-t border-solid border-slate-200">
@@ -83,7 +83,7 @@ export default function TastingDetailsModal({ comment }) {
                       readOnly
                     ></Rating>
                   </div>
-                  <p>{comment.finalComment}</p>
+                  <p className="text-sm my-1">{comment.finalComment}</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
