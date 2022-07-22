@@ -26,7 +26,6 @@ function Nav() {
   const [registerModal, setRegisterModal] = useState(false);
   const { logout } = useLogout();
   const { user } = useAuthContext();
-  
 
   return (
     <Disclosure as="nav" className="bg-amber-800">

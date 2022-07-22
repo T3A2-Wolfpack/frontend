@@ -35,7 +35,7 @@ const TastingDetailsPreview = ({ comment, whiskey_id }) => {
   // console.log(getUser(comment.user_id));
 
   return (
-    <div className="flex flex-col container p-3 rounded overflow-hidden shadow-lg">
+    <div className="flex flex-col bg-orange-200 container p-3 rounded overflow-hidden shadow-lg">
       <div className="w-full flex justify-between">
         {/* <h3 className="">{getUser()}</h3> */}
         <Rating precision={0.25} readOnly value={comment.finalRating}></Rating>

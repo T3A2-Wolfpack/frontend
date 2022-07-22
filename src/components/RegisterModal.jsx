@@ -11,8 +11,7 @@ const RegisterModal = ({registerModal, setRegisterModal}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setRegisterModal(false);
-    setRegisterModal(false);
-    await signup(name, email, password);
+    await signup( name, email, password );
   };
 
   return (
