@@ -4,9 +4,7 @@ import { useContext } from "react";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 
 // API connection point
-const api =
-  "https://frozen-bayou-80971.herokuapp.com/api/whiskeys" ||
-  "http://localhost:4000/api/whiskeys";
+const api = import.meta.env.VITE_API_SERVER_URL;
 
   // Retrieve all whiskeys from database
 export function RetrieveWhiskeyFromApi() {

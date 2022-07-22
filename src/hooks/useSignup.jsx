@@ -6,11 +6,13 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
+  const api = import.meta.env.VITE_API_SERVER_URL;
+
   const signup = async (name, email, password) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/users/register", {
+    const response = await fetch(`${api}/api/users/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password })

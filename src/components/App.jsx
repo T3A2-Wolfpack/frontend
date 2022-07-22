@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "../pages/Home";
@@ -6,7 +6,6 @@ import NewWhiskey from "../pages/NewWhiskey";
 import Whiskeys from "../pages/Whiskeys";
 import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
-import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import { AuthContextProvider } from "../context/AuthContext";
 import {
