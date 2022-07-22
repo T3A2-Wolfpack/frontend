@@ -3,7 +3,6 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { useContext, useReducer, useState } from "react";
 import formReducer from "../hooks/formReducer";
-import Select from "react-select";
 
 
 
@@ -87,7 +86,7 @@ function NewWhiskey() {
         <div className="bg-orange-200 py-8 px-6 shadow rounded-lg sm:px-10">
         <form className="mb-0 space-y-6" onSubmit={formSubmit}>
           <div>
-            <label for="name" className="block text-lg font-medium text-amber-700">Whiskey name</label>
+            <label htmlFor="name" className="block text-lg font-medium text-amber-700">Whiskey name</label>
             <input
               required
               id="name"
@@ -99,7 +98,7 @@ function NewWhiskey() {
             ></input>
           </div>
           <div>
-          <label for="description" className="block text-lg font-medium text-amber-700">Description</label>
+          <label htmlFor="description" className="block text-lg font-medium text-amber-700">Description</label>
             <textarea
               required
               rows="3"
@@ -110,7 +109,7 @@ function NewWhiskey() {
             ></textarea>
           </div>
           <div>
-          <label for="age" className="block text-lg font-medium text-amber-700">Whiskey age</label>
+          <label htmlFor="age" className="block text-lg font-medium text-amber-700">Whiskey age</label>
           <input
               required
               id="age"
@@ -122,9 +121,8 @@ function NewWhiskey() {
             ></input>
           </div>
           <div>
-          <label required for="region" className="block text-lg font-medium text-amber-700">Region
+          <label className="block text-lg font-medium text-amber-700">Region
           <select
-              defaultValue="Scotch"
               id="region"
               type="text"
               name="region"
@@ -144,9 +142,8 @@ function NewWhiskey() {
             </label>
           </div>
           <div>
-          <label required for="type" className="block text-lg font-medium text-amber-700">Type
+          <label className="block text-lg font-medium text-amber-700">Type
           <select
-              defaultValue="Single Malt"
               id="type"
               type="text"
               name="type"
@@ -168,9 +165,8 @@ function NewWhiskey() {
             </label>
           </div>
           <div>
-          <label required for="price" className="block text-lg font-medium text-amber-700">Budget
+          <label className="block text-lg font-medium text-amber-700">Budget
           <select
-              
               type="text"
               id="price"
               name="price"

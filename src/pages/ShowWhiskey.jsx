@@ -4,15 +4,9 @@ import AddComment from "../components/comments/AddComment";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
-import NoWorkResult from "postcss/lib/no-work-result";
-import StarRating from "../components/StarRating";
-import WhiskeyDetails from "../components/WhiskeyDetails";
-
 import { useAuth0 } from "@auth0/auth0-react";
 
 import TastingDetailsPreview from "../components/TastingDetailsPreview";
-
-import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import TastingModal from "../components/TastingModal";
 import { useState } from "react";
 
@@ -31,42 +25,51 @@ function ShowWhiskey() {
   });
 
   return (
-    <>
+    <div className="grid items-start justify-center bg-hero bg-cover min-h-screen prose lg:prose-xl min-w-full">
 
       {GetComments(id)}
 
-      <div className="container mx-auto mt-10 mb-10 flex flex-col ">
-        <div className="flex justify-between">
-          <h3>{whiskey ? whiskey.name : null}</h3>
-          <p>5 Stars</p>
+      <div className="py-6 justify-between">
+        <div className="flex max-w-[800px] bg-orange-200 shadow-lg rounded-3xl">
+        <img src={whiskey ? whiskey.image : null} className="max-h-72 rounded-3xl" />
+          <div className="w-2/3 p-4">
+          <div className="pt-4 flex flex-row justify-between text-amber-900 font-bold text-2xl">{whiskey ? whiskey.name : null} <span>{whiskey.finalRating ? `${whiskey.finalRating} stars` : "Unrated"}</span></div>
+          <p className="text-amber-600 text-sm">Origin: { whiskey ? whiskey.region : null }</p>
+          <p className="mt-2 text-amber-600 text-sm">Type: { whiskey ? whiskey.type : null }</p>
+          <p className="mt-2 text-amber-600 text-sm">Age: { whiskey ? (whiskey.age === 0 ? "No Statement" : whiskey.age) : null }</p>
+          <p className="mt-2 text-amber-600 text-sm">{ whiskey ? whiskey.description : null }</p>
+        <div className="flex item-center ">
         </div>
-        <div className="flex justify-between">
-          <img src={whiskey ? whiskey.image : null} className="w-20" />
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas,
-            nemo a. Vero itaque ut maiores, cupiditate soluta pariatur alias non
-            modi laborum cum eos qui voluptate? Suscipit eum eligendi voluptas?
-          </p>
+        <div className="flex flex-row justify-between ">
+          <div className="top-0 text-amber-700 font-bold text-lg">Price Range: {whiskey ? whiskey.price : null}</div>
+          <div>
+          <TastingModal
+            starValues={starValues}
+            setStarValues={setStarValues}
+          />
+          </div>
         </div>
-        <TastingModal
-          starValues={starValues}
-          setStarValues={setStarValues}
-        ></TastingModal>
+        </div>
+      </div>
+    </div>
+      <div>
+        
       </div>
 
-      <div className="container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">
+      <div className="container  mx-auto grid gap-4 grid-cols-1 md:grid-cols-2 pl-20 pr-20">
         {comments
           .filter((comment) => comment.whiskey_id === id)
           .map((comment) => (
             <TastingDetailsPreview
               comment={comment}
+              
               user={user}
               starValues={starValues}
               whiskey_id={id}
             />
           ))}
       </div>
-    </>
+    </div>
   );
 }
 
