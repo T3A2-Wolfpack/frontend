@@ -11,7 +11,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 // create resources for Link to map over
 const navigation = [
   { name: "Home", to: "/", current: true },
-  { name: "Whiskies", to: "/whiskeys", current: false },
+  { name: "Whiskeys", to: "/whiskeys", current: false },
   { name: "Add a Whiskey", to: "/newwhiskey", current: false },
 ];
 
