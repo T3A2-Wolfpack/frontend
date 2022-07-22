@@ -1,13 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
-import { useContext, useReducer, useState } from "react";
-
-
-
-
+import { useContext,  useState } from "react";
 
 const api = `${import.meta.env.VITE_API_SERVER_URL}/api/whiskeys` || 'http://localhost:4000/api/whiskeys'
-
 
 function NewWhiskey() {
   // State for whiskey
@@ -47,9 +42,6 @@ function NewWhiskey() {
     setWhiskeyState({...whiskeyState, [e.target.name] : e.target.value})
   }
 
-
-
-
   let nav = useNavigate();
 
   async function formSubmit(e) {
@@ -77,7 +69,7 @@ function NewWhiskey() {
 
   return (
     <div className="bg-hero bg-cover min-h-screen min-w-full prose lg:prose-xl">
-      <h1 className="h-1 text-center text-white mb-5 pb-5">Add New Whiskey</h1>
+      <h1 className="h-1 text-center text-white  py-10">Add New Whiskey</h1>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-orange-200 py-8 px-6 shadow rounded-lg sm:px-10">
         <form className="mb-0 space-y-6" onSubmit={formSubmit}>

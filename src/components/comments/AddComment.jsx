@@ -7,12 +7,11 @@ import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-
-function AddComment({ setShowModal }) {
+function AddComment({ setShowModal, setCurrentUser }) {
   const { addComment } = useContext(GlobalCommentContext);
   const { id } = useParams();
   const { user } = useAuthContext();
-  console.log("in add comment");
+
   const [commentState, setCommentState] = useState({
     visual: {
       rating: 0,
@@ -34,9 +33,10 @@ function AddComment({ setShowModal }) {
     finalComment: "",
     whiskey_id: "",
     user_id: "",
+    user_name: user.name,
   });
 
-  // Updates star values for each rating component
+  // Update final rating
   useEffect(() => {
     const { visual, nose, palate, finish } = commentState;
     const average =
@@ -59,6 +59,7 @@ function AddComment({ setShowModal }) {
       ...commentState,
       whiskey_id: id,
       user_id: user._id,
+      user_name: user.name
     });
   }, []);
 
@@ -99,11 +100,11 @@ function AddComment({ setShowModal }) {
   };
 
   async function submitComment(e) {
-    console.log(`state: ${commentState.visual.rating}`);
     e.preventDefault();
     setShowModal(false);
-    // addComment(commentState);
     await PostComment(id, commentState, addComment);
+    console.log(user.name)
+    console.log(commentState)
   }
 
   return (
