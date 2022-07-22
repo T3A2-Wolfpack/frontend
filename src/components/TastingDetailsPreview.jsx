@@ -9,7 +9,7 @@ const TastingDetailsPreview = ({ comment, user, whiskey_id }) => {
   const { removeComment } = useContext(GlobalCommentContext);
 
   return (
-    <div className="flex flex-col container p-3 rounded overflow-hidden shadow-lg">
+    <div className="flex flex-col bg-orange-200 container p-3 rounded overflow-hidden shadow-lg">
       <div className="w-full flex justify-between">
         <h3 className="">{user ? user.email : null}</h3>
         <Rating precision={0.25} readOnly value={comment.finalRating}></Rating>

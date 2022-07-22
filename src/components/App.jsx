@@ -10,7 +10,7 @@ import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
 import { ProtectedRoute } from "./ProtectedRoute";
-import { useAuth0 } from "@auth0/auth0-react";
+
 import { Loading } from "./Loading";
 import { AuthContextProvider } from "../context/AuthContext";
 
