@@ -14,14 +14,8 @@ function ShowWhiskey() {
   const { user } = useAuthContext();
   const { id } = useParams();
   const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
-  // GetComments(id);
-  console.log(comments);
-  console.log(user);
+  GetComments(id);
 
-
-  
-
- 
   const whiskeyRating = () => {
     let counter = 0;
     for (const element of comments) {
@@ -50,13 +44,10 @@ function ShowWhiskey() {
   // useEffect(() => {
 
   // }, [third])
-  
 
   return (
     <div className="grid items-start justify-center bg-hero bg-cover min-h-screen prose lg:prose-xl min-w-full">
-
-      {GetComments(id)}
-
+     {GetComments(id)}
       <div className="py-6 justify-between">
         <div className="flex max-w-[800px] bg-orange-200 shadow-lg rounded-3xl">
         <img src={whiskey ? whiskey.image : null} className="max-h-72 rounded-3xl" />
@@ -93,8 +84,7 @@ function ShowWhiskey() {
           .map((comment) => (
             <TastingDetailsPreview
               comment={comment}
-              
-              user={user}
+               user={user}
               whiskey_id={id}
             ></TastingDetailsPreview>
           ))}
@@ -104,12 +94,7 @@ function ShowWhiskey() {
 }
 
 export default ShowWhiskey;
-{/* 
 
-      <div className="flex justify-between">
-          <h3>{whiskey ? whiskey.name : null}</h3>
-          
-      </div> */}
 
       
 

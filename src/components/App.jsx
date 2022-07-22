@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
-// import "../App.css";
 import Nav from "./Nav";
 import Home from "../pages/Home";
 import NewWhiskey from "../pages/NewWhiskey";
@@ -9,7 +8,6 @@ import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
-// import { Loading } from "./Loading";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthContextProvider } from "../context/AuthContext";
 
@@ -74,11 +72,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
