@@ -21,11 +21,8 @@ export const useSignup = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
-      console.log(`RESPOSE NOT OK\n${json.error}`)
-    }
+     }
     if (response.ok) {
-      console.log("OKKKKKK");
-      // save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
       console.log(json);
       // update the auth context

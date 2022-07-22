@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
 import commentReducer from "./commentReducer";
-// Context file for comment
 
 const initialState = {
   comments: [],
