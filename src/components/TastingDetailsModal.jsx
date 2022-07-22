@@ -1,16 +1,19 @@
 import { useState } from "react";
 import AddComment from "./comments/AddComment";
+import Rating from "@mui/material/Rating";
 
-export default function TastingDetailsModal({ starValues, setStarValues }) {
+export default function TastingDetailsModal({ comment }) {
   const [showModal, setShowModal] = useState(false);
+
   return (
     <>
+      {/* Show modal */}
       <button
         className="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
-        View Tasting
+        View
       </button>
       {showModal ? (
         <>
@@ -19,26 +22,80 @@ export default function TastingDetailsModal({ starValues, setStarValues }) {
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Add Tasting</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+                <div className="flex flex-col items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <Rating
+                    value={comment.finalRating}
+                    precision={0.25}
+                    readOnly
+                  ></Rating>
+                  <h3 className="text-3xl font-semibold">
+                    User name's Tasting
+                  </h3>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <AddComment
-                    setShowModal={setShowModal}
-                    starValues={starValues}
-                    setStarValues={setStarValues}
-                  ></AddComment>
+                <div className="relative p-6 flex-auto flex-col">
+                  <div className="flex justify-between">
+                    <h3>Visual</h3>
+                    <Rating
+                      value={comment.visual.rating}
+                      precision={0.25}
+                      readOnly
+                    ></Rating>
+                  </div>
+                  <p className="text-sm my-1">{comment.visual.comment}</p>
+
+                  <div className="flex justify-between">
+                    <h3>Nose</h3>
+                    <Rating
+                      value={comment.nose.rating}
+                      precision={0.25}
+                      readOnly
+                    ></Rating>
+                  </div>
+                  <p className="text-sm my-1">{comment.nose.comment}</p>
+
+                  <div className="flex justify-between">
+                    <h3>Palate</h3>
+                    <Rating
+                      value={comment.palate.rating}
+                      precision={0.25}
+                      readOnly
+                    ></Rating>
+                  </div>
+                  <p className="text-sm my-1">{comment.palate.comment}</p>
+
+                  <div className="flex justify-between">
+                    <h3>Finish</h3>
+                    <Rating
+                      value={comment.finish.rating}
+                      precision={0.25}
+                      readOnly
+                    ></Rating>
+                  </div>
+                  <p className="text-sm my-1">{comment.finish.comment}</p>
+
+                  <div className="flex justify-between">
+                    <h2 className="border-t border-solid border-slate-200">
+                      Final Rating
+                    </h2>
+                    <Rating
+                      value={comment.finalRating}
+                      precision={0.25}
+                      readOnly
+                    ></Rating>
+                  </div>
+                  <p className="text-sm my-1">{comment.finalComment}</p>
                 </div>
                 {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>

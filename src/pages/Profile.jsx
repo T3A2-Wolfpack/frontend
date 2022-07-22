@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import LoginButton from "../components/Login";
+
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -21,7 +21,7 @@ const Profile = () => {
     ) : (
       <>
         <h1>Oops, you're not logged in!</h1>
-        <LoginButton className="lg:btn" />
+        <div>log in button</div>
       </>
     )
   );

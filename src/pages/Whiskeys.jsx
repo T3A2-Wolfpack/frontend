@@ -7,6 +7,7 @@ import ReactPaginate from "react-paginate";
 function Whiskeys() {
   const { whiskeys } = useContext(GlobalWhiskeyContext);
   const [searchWhiskey, setSearchWhiskey] = useState("");
+  // Pagination
   const [page, setPage] = useState(0)
   const whiskeysPerPage = 6
   const pagesVisited = page * whiskeysPerPage
@@ -29,7 +30,9 @@ function Whiskeys() {
     <>
       <RetrieveWhiskeyFromApi />
       <div className="min-h-screen min-w-screen bg-hero bg-scroll bg-cover bg-centre bg-repeat">
-        <h1 className="text-white text-6xl text-bold p-2">Whiskies:</h1>
+
+        <h1 className="text-white text-6xl text-bold p-2">Whiskeys:</h1>
+
         <div className="search">
         <div className="searchInputs " >
           <input

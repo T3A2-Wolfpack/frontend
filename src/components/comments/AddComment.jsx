@@ -1,18 +1,18 @@
 import produce from "immer";
-
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PostComment } from "../../axios/Comments";
 import { GlobalCommentContext } from "../../hooks/globalComment";
-import { useAuth0 } from "@auth0/auth0-react";
 import Rating from "@mui/material/Rating";
 import { useEffect } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 
-function AddComment({ setShowModal, starValues, setStarValues }) {
+function AddComment({ setShowModal }) {
+  const { addComment } = GlobalCommentContext;
   const { id } = useParams();
-  const { user } = useAuth0();
-
+  const { user } = useAuthContext();
+  console.log("in add comment");
   const [commentState, setCommentState] = useState({
     visual: {
       rating: 0,
@@ -36,69 +36,25 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     user_id: "",
   });
 
+  // Updates star values for each rating component
   useEffect(() => {
-    setStarValues({ ...starValues, visual: starValues.visual });
-    setCommentState({
-      ...commentState,
-      visual: {
-        rating: starValues.visual,
-        comment: commentState.visual.comment,
-      },
-    });
-  }, [starValues.visual]);
-
-  useEffect(() => {
-    setStarValues({ ...starValues, nose: starValues.nose });
-    setCommentState({
-      ...commentState,
-      nose: {
-        rating: starValues.nose,
-        comment: commentState.nose.comment,
-      },
-    });
-  }, [starValues.nose]);
-
-  useEffect(() => {
-    setStarValues({ ...starValues, palate: starValues.palate });
-    setCommentState({
-      ...commentState,
-      palate: {
-        rating: starValues.palate,
-        comment: commentState.palate.comment,
-      },
-    });
-  }, [starValues.palate]);
-
-  useEffect(() => {
-    setStarValues({ ...starValues, finish: starValues.finish });
-    setCommentState({
-      ...commentState,
-      finish: {
-        rating: starValues.finish,
-        comment: commentState.finish.comment,
-      },
-    });
-  }, [starValues.finish]);
-
-  useEffect(() => {
-    console.log(commentState);
-    const { visual, nose, palate, finish } = starValues;
-    const average = (visual + nose + palate + finish) / 4;
-    setStarValues({ ...starValues, average });
+    const { visual, nose, palate, finish } = commentState;
+    const average =
+      (visual.rating + nose.rating + palate.rating + finish.rating) / 4;
     setCommentState({
       ...commentState,
       finalRating: average,
     });
   }, [
-    starValues.visual,
-    starValues.nose,
-    starValues.palate,
-    starValues.finish,
-    starValues.average,
+    commentState.visual.rating,
+    commentState.nose.rating,
+    commentState.palate.rating,
+    commentState.finish.rating,
+    commentState.finalRating,
   ]);
 
+  // set whiskey and user id to tasting
   useEffect(() => {
-    console.log("YOOOOOOOOOOOOOO");
     setCommentState({
       ...commentState,
       whiskey_id: id,
@@ -106,6 +62,7 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     });
   }, []);
 
+  // Allows nesting states to be accessed
   const immerVisualComment = (e) => {
     const value = produce(commentState, (draft) => {
       draft.visual.comment = e.target.value;
@@ -141,9 +98,8 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
     setCommentState(value);
   };
 
-  const { addComment } = useContext(GlobalCommentContext);
-
   async function submitComment(e) {
+    console.log(`state: ${commentState.visual.rating}`);
     e.preventDefault();
     setShowModal(false);
     await PostComment(id, commentState, addComment);
@@ -157,9 +113,15 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
             <label>Visual Rating</label>
             <div>
               <Rating
-                value={starValues.visual}
+                value={commentState.visual.rating}
                 onChange={(_, value) => {
-                  setStarValues({ ...starValues, visual: value });
+                  setCommentState({
+                    ...commentState,
+                    visual: {
+                      rating: value,
+                      comment: commentState.visual.comment,
+                    },
+                  });
                 }}
               ></Rating>
             </div>
@@ -178,9 +140,15 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
           <div className="my-2 flex justify-between">
             <label>Nose Rating</label>
             <Rating
-              value={starValues.nose}
+              value={commentState.nose.rating}
               onChange={(_, value) => {
-                setStarValues({ ...starValues, nose: value });
+                setCommentState({
+                  ...commentState,
+                  nose: {
+                    rating: value,
+                    comment: commentState.nose.comment,
+                  },
+                });
               }}
             ></Rating>
           </div>
@@ -199,9 +167,15 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
           <div className="my-2 flex justify-between">
             <label>Palate Rating</label>
             <Rating
-              value={starValues.palate}
+              value={commentState.palate.rating}
               onChange={(_, value) => {
-                setStarValues({ ...starValues, palate: value });
+                setCommentState({
+                  ...commentState,
+                  palate: {
+                    rating: value,
+                    comment: commentState.palate.comment,
+                  },
+                });
               }}
             ></Rating>
           </div>
@@ -219,9 +193,15 @@ function AddComment({ setShowModal, starValues, setStarValues }) {
           <div className="my-2 flex justify-between">
             <label>Finish Rating</label>
             <Rating
-              value={starValues.finish}
+              value={commentState.finish.rating}
               onChange={(_, value) => {
-                setStarValues({ ...starValues, finish: value });
+                setCommentState({
+                  ...commentState,
+                  finish: {
+                    rating: value,
+                    comment: commentState.finish.comment,
+                  },
+                });
               }}
             ></Rating>
           </div>
