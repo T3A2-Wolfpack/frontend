@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import AddComment from "../components/comments/AddComment";
+import { useParams } from "react-router-dom";
 import { GlobalWhiskeyContext } from "../hooks/GlobalWhiskey";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import { GetComments } from "../axios/Comments";
@@ -40,13 +39,13 @@ function ShowWhiskey() {
           <p className="mt-2 text-amber-600 text-sm">{ whiskey ? whiskey.description : null }</p>
         <div className="flex item-center ">
         </div>
-        <div className="flex flex-row justify-between ">
+        <div className="flex flex-row justify-between">
           <div className="top-0 text-amber-700 font-bold text-lg">Price Range: {whiskey ? whiskey.price : null}</div>
           <div>
           <TastingModal
             starValues={starValues}
             setStarValues={setStarValues}
-          />
+          ></TastingModal>
           </div>
         </div>
         </div>
@@ -66,7 +65,7 @@ function ShowWhiskey() {
               user={user}
               starValues={starValues}
               whiskey_id={id}
-            />
+            ></TastingDetailsPreview>
           ))}
       </div>
     </div>
