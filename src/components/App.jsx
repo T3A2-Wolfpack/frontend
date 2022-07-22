@@ -9,9 +9,8 @@ import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
+// import { Loading } from "./Loading";
 import { ProtectedRoute } from "./ProtectedRoute";
-
-import { Loading } from "./Loading";
 import { AuthContextProvider } from "../context/AuthContext";
 
 import {
@@ -59,10 +58,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/whiskeys" element={<Whiskeys />} />
-              <Route
+              {/* <Route
                 path="/newwhiskey"
                 element={<ProtectedRoute component={NewWhiskey} />}
-              />
+              /> */}
               <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
               <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
               <Route path="/profile" element={<Profile />} />

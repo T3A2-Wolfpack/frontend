@@ -10,11 +10,12 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/register", {
+    const response = await fetch("http://localhost:4000/api/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password })
     });
+    console.log(response.body)
     const json = await response.json();
 
     if (!response.ok) {
