@@ -45,7 +45,6 @@ function App() {
               <Route path="/newwhiskey" element={<NewWhiskey />} />
               <Route path="/whiskey/:id" element={<ShowWhiskeyHOC />} />
               <Route path="/whiskey/edit/:id" element={<EditWhiskeyHOC />} />
-              <Route path="/profile" element={<Profile />} />
             </Routes>
           </BrowserRouter>
         </GlobalWhiskeyProvider>

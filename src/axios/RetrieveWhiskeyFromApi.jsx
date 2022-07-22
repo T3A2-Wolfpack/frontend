@@ -12,7 +12,7 @@ export function RetrieveWhiskeyFromApi() {
   try {
     useEffect(() => {
       async function retrieveWhiskeys() {
-        const res = await axios.get(api);
+        const res = await axios.get(`${api}/api/whiskeys`);
         await showWhiskeys(res.data);
       }
       retrieveWhiskeys();
@@ -25,7 +25,7 @@ export function RetrieveWhiskeyFromApi() {
 // Post whiskey to database
 export function PostRequest(formState) {
   try {
-    axios.post(api, formState);
+    axios.post(`${api}/api/whiskeys`, formState);
   } catch (error) {
     console.error(error);
   }
@@ -34,7 +34,7 @@ export function PostRequest(formState) {
 // Delete whiskey from database
 export function DeleteWhiskey(id) {
   try {
-    axios.delete(`${api}/${id}`)
+    axios.delete(`${api}/api/whiskeys/${id}`)
   } catch (error) {
     console.error(error)
   }
@@ -42,7 +42,7 @@ export function DeleteWhiskey(id) {
 
 // Edit whiskey
 export async function PatchWhiskey(id, whiskey) {
-  const response = await fetch(`${api}/${id}`, {
+  const response = await fetch(`${api}/api/whiskeys/${id}`, {
     method: "PATCH",
     body: JSON.stringify(whiskey),
     headers: {
