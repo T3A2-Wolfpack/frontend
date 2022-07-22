@@ -9,8 +9,8 @@ import ShowWhiskey from "../pages/ShowWhiskey";
 import EditAWhiskey from "../pages/EditAWhiskey";
 import Profile from "../pages/Profile";
 import { RetrieveWhiskeyFromApi } from "../axios/RetrieveWhiskeyFromApi";
-// import { ProtectedRoute } from "./ProtectedRoute";
 // import { Loading } from "./Loading";
+import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthContextProvider } from "../context/AuthContext";
 
 import {
