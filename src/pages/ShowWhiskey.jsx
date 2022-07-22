@@ -73,8 +73,12 @@ function ShowWhiskey() {
                     You've already made a tasting!
                   </div>
                 </>
-              ) : (
+              ) : user && !comments.some((e) => e.user_id === user._id) ? (
                 <TastingModal setCurrentUser={setCurrentUser}></TastingModal>
+              ) : (
+                <div className="text-red-600 text-md mt-0">
+                  Please login to make a tasting
+                </div>
               )}
             </div>
           </div>
