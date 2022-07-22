@@ -9,7 +9,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 
 
 function AddComment({ setShowModal }) {
-  const { addComment } = GlobalCommentContext;
+  const { addComment } = useContext(GlobalCommentContext);
   const { id } = useParams();
   const { user } = useAuthContext();
   console.log("in add comment");
@@ -102,6 +102,7 @@ function AddComment({ setShowModal }) {
     console.log(`state: ${commentState.visual.rating}`);
     e.preventDefault();
     setShowModal(false);
+    // addComment(commentState);
     await PostComment(id, commentState, addComment);
   }
 

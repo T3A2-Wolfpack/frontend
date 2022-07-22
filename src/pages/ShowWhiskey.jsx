@@ -14,14 +14,8 @@ function ShowWhiskey() {
   const { user } = useAuthContext();
   const { id } = useParams();
   const [whiskey] = whiskeys.filter((whiskey) => whiskey._id === id);
-  // GetComments(id);
-  console.log(comments);
-  console.log(user);
+  GetComments(id);
 
-
-  
-
- 
   const whiskeyRating = () => {
     let counter = 0;
     for (const element of comments) {
@@ -50,11 +44,9 @@ function ShowWhiskey() {
   // useEffect(() => {
 
   // }, [third])
-  
 
   return (
     <>
-
       {GetComments(id)}
       <div className="container mx-auto mt-10 mb-10 flex flex-col ">
         <div className="flex justify-between">
@@ -86,11 +78,7 @@ function ShowWhiskey() {
         {comments
           .filter((comment) => comment.whiskey_id === id)
           .map((comment) => (
-            <TastingDetailsPreview
-              comment={comment}
-              user={user}
-              whiskey_id={id}
-            />
+            <TastingDetailsPreview comment={comment} whiskey_id={id} />
           ))}
       </div>
     </>

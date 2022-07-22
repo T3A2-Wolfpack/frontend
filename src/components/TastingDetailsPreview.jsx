@@ -1,17 +1,43 @@
 import Rating from "@mui/material/Rating";
 import moment from "moment";
+import { useState } from "react";
 import { useContext } from "react";
 import { DeleteComment } from "../axios/Comments";
 import { GlobalCommentContext } from "../hooks/globalComment";
 import TastingDetailsModal from "./TastingDetailsModal";
 
-const TastingDetailsPreview = ({ comment, user, whiskey_id }) => {
+const TastingDetailsPreview = ({ comment, whiskey_id }) => {
   const { removeComment } = useContext(GlobalCommentContext);
+  const { comments } = useContext(GlobalCommentContext);
+  const [currentUser, setCurrentUser] = useState("");
+
+  const fetchUser = async () => {
+    const user = await fetch(
+      `http://localhost:4000/api/tastings/${comment._id}/user`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    await setCurrentUser(user)
+    return { comment_id: comment._id};
+  };
+
+  const getUser = async () => {
+    const user = await fetchUser();
+    console.log(user);
+    return user;
+  };
+  getUser();
+
+  // console.log(getUser(comment.user_id));
 
   return (
     <div className="flex flex-col container p-3 rounded overflow-hidden shadow-lg">
       <div className="w-full flex justify-between">
-        <h3 className="">{user ? user.email : null}</h3>
+        {/* <h3 className="">{getUser()}</h3> */}
         <Rating precision={0.25} readOnly value={comment.finalRating}></Rating>
       </div>
 
