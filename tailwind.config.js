@@ -17,6 +17,7 @@ module.exports = {
   plugins: [
     // regains normal h1 behaviour absent from tailwind
     require("@tailwindcss/typography"),
+  
   ],
   variants: {
     backgroundImage: ["responsive", "hover", "focus"],

@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import whiskeyReducer from "./WhiskeyReducer";
 
-// The initial state may change to cover API call to all whiskeys.
 const initialState = {
   whiskeys: []
 };
@@ -10,7 +9,7 @@ export const GlobalWhiskeyContext = createContext(initialState);
 
 export const GlobalWhiskeyProvider = ({ children }) => {
   const [state, dispatch] = useReducer(whiskeyReducer, initialState);
-
+// whiskey dispatch
   function addWhiskey(whiskey) {
     dispatch({
       type: "ADD_WHISKEY",
@@ -38,7 +37,7 @@ export const GlobalWhiskeyProvider = ({ children }) => {
       data: whiskeys,
     });
   }
-
+  console.log("in whiskey provider")
   return (
     <GlobalWhiskeyContext.Provider
       value={{
