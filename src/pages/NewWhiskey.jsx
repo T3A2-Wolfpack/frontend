@@ -23,18 +23,18 @@ function NewWhiskey() {
     const data = new FormData()
     data.append("file", image)
     data.append("upload_preset", "whiskeyImage")
-    data.append("cloud_name", "sonny949")
-    return fetch("https://api.cloudinary.com/v1_1/sonny949/image/upload", {
+    data.append("cloud_name", import.meta.env.VITE_CLOUDINARY_NAME);
+    return fetch(import.meta.env.VITE_CLOUDINARY_URL, {
       method: "post",
-      body: data
+      body: data,
     })
-      .then(res => res.json())
-      .then(data => {
-        whiskeyState.image = data.url
+      .then((res) => res.json())
+      .then((data) => {
+        whiskeyState.image = data.url;
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // DRY dynamic handling of onChange

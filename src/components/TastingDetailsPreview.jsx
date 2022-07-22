@@ -1,6 +1,5 @@
 import Rating from "@mui/material/Rating";
 import moment from "moment";
-import { useState } from "react";
 import { useContext } from "react";
 import { DeleteComment } from "../axios/Comments";
 import { GlobalCommentContext } from "../hooks/globalComment";

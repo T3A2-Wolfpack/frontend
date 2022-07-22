@@ -100,21 +100,6 @@ function Nav() {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              // onClick={logout}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700",
-                                "w-full"
-                              )}
-                            >
-                              Your Profile
-                            </button>
-                          )}
-                        </Menu.Item>
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
                               onClick={logout}
                               className={classNames(
                                 active ? "bg-gray-100" : "",

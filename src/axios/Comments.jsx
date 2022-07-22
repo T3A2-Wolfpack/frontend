@@ -3,6 +3,8 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalCommentContext } from "../hooks/globalComment";
 
+const api = import.meta.env.VITE_API_SERVER_URL
+
 // Get tastings for a whiskey
 export function GetComments(id) {
   const { showComments } = useContext(GlobalCommentContext);
@@ -10,7 +12,7 @@ export function GetComments(id) {
     useEffect(() => {
       const retrieveComments = async () => {
         const res = await axios.get(
-          `http://localhost:4000/api/whiskeys/${id}/tastings`
+          `${api}/api/whiskeys/${id}/tastings`
         );
         await showComments(res.data);
       }
@@ -23,16 +25,13 @@ export function GetComments(id) {
 
 // Post a tasting for a whiskey
 export async function PostComment(id, comment, dispatch) {
-  const response = await fetch(
-    `http://localhost:4000/api/whiskeys/${id}/tastings`,
-    {
-      method: "POST",
-      body: JSON.stringify(comment),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${api}/api/whiskeys/${id}/tastings`, {
+    method: "POST",
+    body: JSON.stringify(comment),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const json = await response.json();
   if (response.ok) {
     console.log("new tasting added:", json);
@@ -43,7 +42,7 @@ export async function PostComment(id, comment, dispatch) {
 // Delete a tasting
 export async function DeleteComment(id, tasting_id, dispatch) {
   const response = await fetch(
-    `http://localhost:4000/api/whiskeys/${id}/tastings/${tasting_id}`,
+    `${api}/api/whiskeys/${id}/tastings/${tasting_id}`,
     {
       method: "DELETE",
     }
